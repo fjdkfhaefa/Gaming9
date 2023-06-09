@@ -1,0 +1,384 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+	<style>
+    aside{
+        position:fixed;
+        right: -50px;
+        width: 250px;
+    }
+    #home{
+		position: relative;
+		right: -50px;
+        width:50px;height:50px;border:solid 10px gray;border-radius:100px;margin:20px;
+    }
+    #home:hover{
+        border-color: skyblue;
+    }
+    .bow{
+        background-color: gray
+    }
+    #full0{
+        width: auto;
+        height: auto;
+        position:relative;
+        top:50px;
+        right: -100px;
+    }
+    #full0:hover .bow{
+        background-color: skyblue;
+    }
+    #speed{
+		right: 50px;
+        width:200px;
+        top:100px;
+        position:relative;
+        display: block;
+    }
+    #speed2{
+		right: 50px;
+        width:200px;
+        top:110px;
+        position:relative;
+        display: block;
+    }
+	</style>
+</head>
+<body style="margin:0;">
+	<aside>
+		<a href="index.html"><div id="home"></div></a>
+		<div id="full0" onclick="full0click()">
+			<div class="bow"id="x0" style="width: 22.68px; height: 9.072px; position: relative; left: -27.216px; top: -27.216px;">
+				<div class="bow"id="y0" style="width: 9.072px; height: 22.68px;position: relative; left: 0px; top: 3.1752px;">
+				</div>
+			</div>
+			<div class="bow"id="x1" style="width: 22.68px; height: 9.072px;position: relative; top: -36.288px; left: 20.412px;">
+				<div class="bow"id="y1" style="width: 9.072px; height: 22.68px;position: relative; top: 3.1752px; left: 13.608px;">
+				</div>
+			</div>
+			<div class="bow"id="x2" style="width: 22.68px; height: 9.072px;position: relative; top: 18.144px; left: 20.412px;">
+				<div class="bow"id="y2" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 13.608px;">
+				</div>
+			</div>
+			<div class="bow"id="x3" style="width: 22.68px; height: 9.072px;position: relative; top: 9.072px; left: -27.216px;">
+				<div class="bow"id="y3" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 0px;">
+				</div>
+			</div>
+		</div>
+		<input type="range" id="speed" name="speed"
+		min="0.1" max="90">
+		<input type="range" id="speed2" name="speed2"
+		min="0.01" max="20">
+	</aside>
+<canvas id="canvasId">
+</canvas>
+<script>
+window.onresize = function(){
+	main()
+}
+function full0click(){
+	if (!document.fullscreenElement) {
+	document.documentElement.requestFullscreen();
+	} else if (document.exitFullscreen) {
+	document.exitFullscreen();
+	}
+	// サイズを取得
+
+}
+spmeter = document.getElementById("speed")
+spmeter2 = document.getElementById("speed2")
+spmeter.addEventListener("input", (event) => {
+	cRate = Number(event.target.value)
+})
+spmeter2.addEventListener("input", (event) => {
+	speed = Number(event.target.value)
+})
+var canvas = document.getElementById("canvasId")
+var context = canvas.getContext("2d")
+var ww = window.innerWidth
+var wh = window.innerHeight
+var circler = ww*0.2
+var x = ww*0.7
+var y = wh/2
+var endAngle = -90
+var startAngle = -90*Math.PI/180
+var lineWidth = ww*0.02
+var lineWidth2 = ww*0.004
+var fonts = ww*0.08
+var fonts1 = ww*0.04
+var fonts2 = ww*0.02
+var y1 = fonts2*1
+var y2 = fonts2*2
+var y3 = fonts2*3
+var y4 = fonts2*4
+var y6 = fonts2*6
+var y7 = fonts2*7
+var y8 = fonts2*8
+var y9 = fonts2*9
+
+var r = 255
+var r3 = 255
+var g = 0
+var b = 0
+var red=false
+var redMinus = true
+var green = true
+var greenMinus = false
+var blue = false
+var blueMinus = false
+var cRate = 0.6
+
+function resize(){
+    ww = window.innerWidth
+    wh = window.innerHeight
+    canvas.width = ww
+    canvas.height = wh
+	circler = ww*0.2
+	x = ww*0.7
+	y = wh/2
+	lineWidth = ww*0.02
+	lineWidth2 = ww*0.004
+	fonts = ww*0.08
+	fonts1 = ww*0.04
+	fonts2 = ww*0.02
+	y1 = fonts2*1
+	y2 = fonts2*2
+	y3 = fonts2*3
+	y4 = fonts2*4
+    y6 = fonts2*6
+    y7 = fonts2*7
+    y8 = fonts2*8
+    y9 = fonts2*9
+}resize()
+
+window.onresize = function(){
+    resize()
+}
+
+var random
+var judge = 1
+var r
+var r2
+var angle2 = 360*Math.PI/180
+var fpsnum
+var FPS
+var avgFps
+var AVG
+var minFps
+var maxFps
+var firstLoad = 0
+
+function fps(){
+	FPS = fpsnum
+	if(firstLoad == 1){
+		minFps = FPS
+		maxFps = FPS
+		avgFps = FPS
+		//console.log(minFps,maxFps,avgFps)
+		setTimeout(fps2,10000)
+	}
+	firstLoad++
+	minFps = Math.min(FPS,minFps)
+	maxFps = Math.max(FPS,maxFps)
+	fpsnum = 0
+	avgFps+=FPS
+	setTimeout(fps,1000)
+}fps()
+function fps2(){
+	AVG = avgFps/10
+	avgFps = 0
+	setTimeout(fps2,10000)
+}
+
+function decideSpeed(){
+	random=Math.random()
+	r = random
+	r2 = random*0.01
+	if(random > 0.7){
+		judge = 1
+	}else{
+		judge = -1
+	}
+	//console.log(random,judge)
+	speed = 0
+	reduce = false
+}decideSpeed()
+
+var reduce = false
+var stop = false
+var terminal = navigator.userAgent
+var txt = terminal.split(``)
+//console.log(terminal)
+var txt1 = []
+var txt2 = []
+var txt3 = []
+var items = 0
+var count = 0
+var txtCount = 0
+var line1 = "User info: "
+line1 = line1.split(``)
+line1 = line1.join(``)
+
+while(count < txt.length){
+    if(items == 0){
+        txt1.push(txt[count])
+    }else if(items == 1){
+        txt2.push(txt[count])
+    }else{
+        txt3.push(txt[count])
+    }
+    if(txt[count] == `)`){
+        items++
+    }
+
+    count++
+}
+//console.log(txt1,txt2,txt3)
+txt1 = txt1.join(``)
+txt2 = txt2.join(``)
+txt3 = txt3.join(``)
+var delay = [line1.length,line1.length+txt1.length,line1.length+txt1.length+txt2.length]
+
+function update(){
+    context.fillStyle = "black"
+    context.fillRect(0,0,ww,wh)
+
+	context.beginPath()
+	context.lineWidth = lineWidth2
+	//context.strokeStyle = "skyblue"
+	context.strokeStyle = `rgb(${r3},${g},${b})`
+	context.arc(x,y,circler,0,angle2,false)
+	context.stroke()
+
+	context.beginPath()
+	//context.strokeStyle = "deepskyblue"//����Ă΂Ȃ��ƂȂ�Ȃ�
+	context.strokeStyle = `rgb(${r3},${g},${b})`
+	context.lineWidth = lineWidth
+	context.arc(x,y,circler,startAngle,endAngle*3.14/180,false)
+	context.stroke()
+	if(r > speed && reduce == false){
+		speed+=r2
+		//console.log("pluse",speed)
+	}else{
+		//console.log("minus",speed)
+		if(speed < 0){
+			decideSpeed()
+		}else{
+			reduce = true
+			speed-=r2
+		}
+	}
+	//context.fillStyle = "skyblue"
+	context.fillStyle = `rgb(${r3},${g},${b})`
+	context.font = `${fonts}px bold serif`
+	context.fillText(Math.floor(endAngle*10)/10,x-fonts*2,y)
+	context.font = `${fonts1}px serif`
+	context.fillText("endAngle",x-fonts,y+fonts)	
+
+	//console.log(endAngle)
+	if(endAngle > 270){
+		judge = -1
+	}
+	if(endAngle < -450){
+		judge = 1
+	}
+	let sp = speed*judge
+	//console.log(judge)
+	endAngle+=sp
+
+	fpsnum++
+	context.font = `${fonts2}px serif`
+	context.fillText("FPS: "+FPS,0,y1)
+	context.fillText("MinFPS: "+minFps,0,y2)
+	context.fillText("AVG FPS: "+AVG,0,y3)
+	context.fillText("MaxFPS: "+maxFps,0,y4)
+
+    if(txtCount < delay[2]+100){
+        txtCount+=0.2
+    }else{
+        txtCount = 0
+    }
+    console.log(txtCount)
+
+    if(txtCount > 0){
+        context.fillText(line1.slice(0,Math.floor(txtCount)),0,y6)
+    }
+    if(txtCount > delay[0]){
+        context.fillText(txt1.slice(0,Math.floor(txtCount-delay[0])),0,y7)
+    }
+    if(txtCount > delay[1]){
+        context.fillText(txt2.slice(0,Math.floor(txtCount-delay[1])),0,y8)
+    }
+    if(txtCount > delay[2]){
+        context.fillText(txt3.slice(0,Math.floor(txtCount-delay[2])),0,y9)
+    }
+	
+	if(stop == false){
+if(red){
+		if(r3<255){
+			r3+=cRate
+		}else{
+			red=false
+			greenMinus=false
+			blueMinus=true
+			green=true
+		}
+	}
+	if(redMinus){
+		if(r3>0){
+			r3-=cRate
+		}
+
+	}
+	if(green){
+		if(g<255){//r=255,g��0����255�܂ŏ㏸��
+			g+=cRate
+		}else{//r=255���猸��,g=255�̂܂�
+			green=false
+			redMinus = true
+			blueMinus = false
+			blue=true
+		}
+	}
+	if(greenMinus){
+		if(g>0){
+			g-=cRate
+		}
+
+	}
+	if(blue){
+		if(b<255){//
+			b+=cRate
+		}else{
+			blue=false
+			greenMinus = true
+			redMinus = false
+			red=true
+		}
+	}
+	if(blueMinus){
+		if(b>0){
+			b-=cRate
+		}
+
+	}
+	//ctx.fillStyle = `rgb(${r},${g},${b})`
+	//body.style.color = `rgb(${r},${g},${b})`
+    		requestAnimationFrame(update)
+	}else{//stop==false
+		
+	}
+}update()
+document.addEventListener("keydown",function(event){
+	if(event.key == " "){
+		if(stop == false){
+			stop = true
+		}else{
+			stop = false
+			update()
+		}
+	}
+})
+</script>
+</html>
+</body>

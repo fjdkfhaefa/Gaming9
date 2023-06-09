@@ -1,0 +1,260 @@
+﻿
+<head>
+    <style>
+        #home{
+		    position:fixed;width:50px;height:50px;border:solid 10px gray;border-radius:100px;margin:20px;
+        }
+        #home:hover{
+            border-color: skyblue;
+        }
+        .bow{
+            background-color: gray
+        }
+        #full0{
+            width: auto;
+            height: auto;
+            position: fixed;
+            top: 100px;
+            left: 0;
+            margin: 50px;
+        }
+        #full0:hover .bow{
+            background-color: skyblue;
+        }
+        #speed{
+            position: fixed;
+            top:250px;
+            width:200px;
+        }
+        #speed2{
+            position: fixed;
+            top:300px;
+            width:200px;
+        }
+    </style>
+</head>
+<body style="margin:0;">
+<a href="index.html"><div id="home"></div></a>
+<div id="full0" onclick="full0click()">
+    <div class="bow"id="x0" style="width: 22.68px; height: 9.072px; position: relative; left: -27.216px; top: -27.216px;">
+        <div class="bow"id="y0" style="width: 9.072px; height: 22.68px;position: relative; left: 0px; top: 3.1752px;">
+        </div>
+    </div>
+    <div class="bow"id="x1" style="width: 22.68px; height: 9.072px;position: relative; top: -36.288px; left: 20.412px;">
+        <div class="bow"id="y1" style="width: 9.072px; height: 22.68px;position: relative; top: 3.1752px; left: 13.608px;">
+        </div>
+    </div>
+    <div class="bow"id="x2" style="width: 22.68px; height: 9.072px;position: relative; top: 18.144px; left: 20.412px;">
+        <div class="bow"id="y2" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 13.608px;">
+        </div>
+    </div>
+    <div class="bow"id="x3" style="width: 22.68px; height: 9.072px;position: relative; top: 9.072px; left: -27.216px;">
+        <div class="bow"id="y3" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 0px;">
+        </div>
+    </div>
+</div>
+<input type="range" id="speed" name="speed"
+min="0.1" max="200">
+<input type="range" id="speed2" name="speed2"
+min="0.01" max="15">
+<canvas id="canvasId">
+</canvas>
+
+<script>
+    canvas = document.getElementById("canvasId")
+    context = canvas.getContext("2d")
+    var ww = window.innerWidth
+    var wh = window.innerHeight
+    var endAngle = 0
+    var startAngle = -90
+    var thickness = ww*0.1
+    var radius = ww*0.1
+    var stop = false
+    var endSpeed = 2
+    var startSpeed = 1
+    var fix = false
+    var fix2 = false
+    var speed = 1.5
+    var minSpeed = 1
+    var fontSize = ww*0.04
+    var text = "Now Loading"
+    var count = 0
+    var r = 255
+    var r2 = 255
+    var g = 0
+    var b = 0
+    var red=false
+    var redMinus = true
+    var green = true
+    var greenMinus = false
+    var blue = false
+    var blueMinus = false
+    var cRate = 40
+    function size(){
+        ww = window.innerWidth
+        wh = window.innerHeight
+        canvas.width = ww
+        canvas.height = wh
+        thickness = ww*0.1
+        radius = ww*0.1
+        fontSize = ww*0.04
+        context.font = fontSize+"px MSゴシック";
+    }size()
+    window.onresize = function(){
+        size()
+    }
+    spmeter = document.getElementById("speed")
+	spmeter2 = document.getElementById("speed2")
+	spmeter.addEventListener("input", (event) => {
+		cRate = Number(event.target.value)
+	})
+	spmeter2.addEventListener("input", (event) => {
+		speed = Number(event.target.value)
+	})
+    function full0click(){
+        if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+        }
+        // サイズを取得
+
+    }
+    function textAnimation(){
+if(red){
+		if(r2<255){
+			r2+=cRate
+		}else{
+			red=false
+			greenMinus=false
+			blueMinus=true
+			green=true
+		}
+	}
+	if(redMinus){
+		if(r2>0){
+			r2-=cRate
+		}
+
+	}
+	if(green){
+		if(g<255){//r=255,gは0から255まで上昇中
+			g+=cRate
+		}else{//r=255から減少,g=255のまま
+			green=false
+			redMinus = true
+			blueMinus = false
+			blue=true
+		}
+	}
+	if(greenMinus){
+		if(g>0){
+			g-=cRate
+		}
+
+	}
+	if(blue){
+		if(b<255){//
+			b+=cRate
+		}else{
+			blue=false
+			greenMinus = true
+			redMinus = false
+			red=true
+		}
+	}
+	if(blueMinus){
+		if(b>0){
+			b-=cRate
+		}
+
+	}
+
+        if(count < 3){
+            count++
+        }else{
+            count = 0
+        }
+        if(count == 3){
+            text = "Now Loading..."
+        }else if(count == 2){
+            text = "Now Loading.."
+        }else if(count == 1){
+            text = "Now Loading."
+        }else{
+            text = "Now Loading"
+        }
+        setTimeout(textAnimation,1000)
+    }textAnimation()
+    function update(){
+        if(fix2 == false){
+            if(speed < 3){
+                speed+=0.01
+            }else{
+                //console.log("maxSpeed")
+                fix2 = true
+            }
+        }else{
+            if(speed > minSpeed){
+                speed-=0.015
+            }else{
+                //console.log("minSpeed")
+                fix2 = false
+            }
+        }
+        if(fix == false){
+            //Math.floor(endAngle/360) endAngleが何周目か Math.abs(endAngle%360-startAngle%360) endAngleとstartAngleの角度差
+            if(Math.floor(endAngle/360) > Math.floor(startAngle/360) && Math.abs(endAngle%360-startAngle%360) < 1){
+                //console.log("0")
+                fix = true
+            }else{
+                endAngle+=speed
+                startAngle+=speed*0.7
+                //console.log("1")
+            }
+        }else{
+            if(Math.floor(endAngle/360) == Math.floor(startAngle/360) && Math.abs(endAngle%360-startAngle%360) < 1){
+                //console.log("2")
+                fix = false 
+            }else{
+                endAngle+=speed*0.7
+                startAngle+=speed
+                //console.log("3")
+            }
+        }
+	context.globalAlpha = 0.04
+        context.fillStyle = "black"
+        context.fillRect(0,0,ww,wh)
+	context.globalAlpha = 1
+        context.beginPath()
+        //x,y,radius,startAngle,endAngle,counterClockWise or NOT
+	context.fillStyle = "black"
+	context.fillRect(ww/2-fontSize*3.5, wh/2+radius*1-fontSize,fontSize*6.4,fontSize*1.5)
+	context.fillStyle = "black"
+        context.arc(ww/2,wh/2-radius,radius,startAngle*Math.PI/180,endAngle*Math.PI/180,false)
+	color = `rgb(${r2},${g},${b})`
+	//context.fillStyle = color
+	context.strokeStyle = color
+        //context.strokeStyle = "deepskyblue"
+        context.lineWidth = ww*0.01
+        context.stroke()
+
+        context.fillStyle = "white"
+        context.fillText(text, ww/2-fontSize*3.5, wh/2+radius*1)
+
+        if(stop == false){
+            requestAnimationFrame(update)
+        }
+    }update()
+    document.addEventListener("keydown",function(event){
+        if(event.key == " "){
+            if(stop == false){
+                stop = true
+            }else{
+                stop = false
+                update()
+            }
+        }
+    })
+</script>
+</body>
