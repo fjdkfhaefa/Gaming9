@@ -57,6 +57,13 @@ min="0" max="70">
 <canvas id="canvas">
 </canvas>
 <script>
+function isSmartPhone() {
+	if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+		return true;
+	} else {
+		return false;
+	}
+}
 spmeter = document.getElementById("speed")
 spmeter.addEventListener("input", (event) => {
   cRate = Number(event.target.value)
@@ -85,7 +92,11 @@ window.onresize = function(){
 	canvas.height = h
 	ctx.font = `${txtS}pt Arial`;
 }
-var txtS = screnH*screnW*0.000015
+var fontSize = 0.000015
+if(isSmartPhone()){
+	fontSize = fontSize*4
+}
+var txtS = screnH*screnW*fontSize
 ctx.font = `${txtS}pt Arial`;
 var txts = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789幻想夢想近未来أقوىماكدونالدزالأعشاب البحرية거울산가라쓰 버거'//�o�J�Ȑl=���ł�
 var num = Math.round(w/txtS)
