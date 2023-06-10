@@ -74,8 +74,10 @@
 	var minus = false
 	var cRate = 5
 	var speed = 10
+	var thick = 2
 	if(isSmartPhone()){
-		amount = 200
+		amount = 100
+		thick = 4
 	}
 	spmeter = document.getElementById("speed")
 	spmeter2 = document.getElementById("speed2")
@@ -134,6 +136,7 @@
 	var clickEventTime = clickETimeMax
 	var burstSp = 5
 	var touching = false
+	
 	document.body.addEventListener( "mousedown",function(){
 		clicking = true
 	} )
@@ -175,7 +178,7 @@
 		rss.push(0.5+Math.random())//randomSizes
 		ws.push(0)
 		circles[num].backgroundColor = "rgba(0,0,0,0)"
-		circles[num].border = `${2}px solid`
+		circles[num].border = `${thick}px solid`
 		circles[num].borderRadius = "50%"
 		circles[num].position = "absolute"
 		circles[num].left = ww*Math.random()
