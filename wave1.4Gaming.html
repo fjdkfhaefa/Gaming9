@@ -61,275 +61,285 @@
 	<input type="range" id="speed2" name="speed2"
 	min="0.1" max="20">
 <script>
-var num = 0
-var amount = 1000
-var nowAmount = amount
-var minus = false
-var cRate = 5
-var speed = 10
-spmeter = document.getElementById("speed")
-spmeter2 = document.getElementById("speed2")
-spmeter.addEventListener("input", (event) => {
-	cRate = Number(event.target.value)
-})
-spmeter2.addEventListener("input", (event) => {
-	speed = Number(event.target.value)
-})
-function full0click(){
-	if (!document.fullscreenElement) {
-	document.documentElement.requestFullscreen();
-	} else if (document.exitFullscreen) {
-	document.exitFullscreen();
+	function isSmartPhone() {
+		if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-	// サイズを取得
+	var num = 0
+	var amount = 1000
+	var nowAmount = amount
+	var minus = false
+	var cRate = 5
+	var speed = 10
+	if(isSmartPhone()){
+		amount = 200
+	}
+	spmeter = document.getElementById("speed")
+	spmeter2 = document.getElementById("speed2")
+	spmeter.addEventListener("input", (event) => {
+		cRate = Number(event.target.value)
+	})
+	spmeter2.addEventListener("input", (event) => {
+		speed = Number(event.target.value)
+	})
+	function full0click(){
+		if (!document.fullscreenElement) {
+		document.documentElement.requestFullscreen();
+		} else if (document.exitFullscreen) {
+		document.exitFullscreen();
+		}
+		// サイズを取得
 
-}
-function main(){
-	function firstCall(){
-	while(num < amount){
+	}
+	function main(){
+		function firstCall(){
+		while(num < amount){
+			
+			var new_element = document.createElement('div');
+			new_element.id = `circle${num}`;
+			document.body.appendChild(new_element);
+			num++
+		}
+		num=0
+	}firstCall()
+	var ww = window.innerWidth
+	var wh = window.innerHeight
+	var circles = new Array()
+	var alphaArray = new Array()
+	var rs = new Array()//radius
+	var rss = new Array()//randomSpeed
+	var ws = new Array()
+	var stop = false
+	var fadesp = 0.013
+	var rColor = 255
+	var g = 0
+	var b = 0
+	var red=false
+	var redMinus = true
+	var green = true
+	var greenMinus = false
+	var blue = false
+	var blueMinus = false
+
+
+	var MaxCoolTime = 360
+	var coolTime = MaxCoolTime*Math.random()
+	var clicking = false
+	var mouseX
+	var mouseY
+	var clickETimeMax = 40
+	var clickEventTime = clickETimeMax
+	var burstSp = 5
+	var touching = false
+	document.body.addEventListener( "mousedown",function(){
+		clicking = true
+	} )
+	document.body.addEventListener("mousemove",function(event){
+		mouseX = event.clientX
+		mouseY = event.clientY
+		//console.log(mouseX)
 		
-		var new_element = document.createElement('div');
-		new_element.id = `circle${num}`;
-		document.body.appendChild(new_element);
+	} )
+
+	var touchX = 0
+	var touchY = 0
+	document.body.addEventListener("touchend",function(){
+		touching = false
+	} )
+	document.body.addEventListener("touchstart",function(event){
+		touching = true
+		var touches = event.changedTouches
+		touchX = event.changedTouches[0].clientX
+		touchY = event.changedTouches[0].clientY
+		//console.log(touchX)
+	})	
+
+	document.body.addEventListener("touchmove",function(event){
+		touching = true
+		var touches = event.changedTouches
+		touchX = event.changedTouches[0].clientX
+		touchY = event.changedTouches[0].clientY
+		//console.log(touchX)
+		
+	} )
+	document.body.addEventListener( "mouseup",function(){
+		clicking = false
+	} )
+	function ini(){
+		while(num<amount){
+		circles.push(document.getElementById(`circle${num}`).style)
+		rs.push(Math.random()*fadesp)
+		rss.push(0.5+Math.random())//randomSizes
+		ws.push(0)
+		circles[num].backgroundColor = "rgba(0,0,0,0)"
+		circles[num].border = `${2}px solid`
+		circles[num].borderRadius = "50%"
+		circles[num].position = "absolute"
+		circles[num].left = ww*Math.random()
+		circles[num].top = wh*Math.random()
+		alphaArray.push(1)
 		num++
-	}
+		}//while
+	}ini()
 	num=0
-}firstCall()
-var ww = window.innerWidth
-var wh = window.innerHeight
-var circles = new Array()
-var alphaArray = new Array()
-var rs = new Array()//radius
-var rss = new Array()//randomSpeed
-var ws = new Array()
-var stop = false
-var fadesp = 0.013
-var rColor = 255
-var g = 0
-var b = 0
-var red=false
-var redMinus = true
-var green = true
-var greenMinus = false
-var blue = false
-var blueMinus = false
 
 
-var MaxCoolTime = 360
-var coolTime = MaxCoolTime*Math.random()
-var clicking = false
-var mouseX
-var mouseY
-var clickETimeMax = 40
-var clickEventTime = clickETimeMax
-var burstSp = 5
-var touching = false
-document.body.addEventListener( "mousedown",function(){
-	clicking = true
-} )
-document.body.addEventListener("mousemove",function(event){
-	mouseX = event.clientX
-	mouseY = event.clientY
-	//console.log(mouseX)
-	
-} )
-
-var touchX = 0
-var touchY = 0
-document.body.addEventListener("touchend",function(){
-	touching = false
-} )
-document.body.addEventListener("touchstart",function(event){
-	touching = true
-	var touches = event.changedTouches
-	touchX = event.changedTouches[0].clientX
-	touchY = event.changedTouches[0].clientY
-	//console.log(touchX)
-})	
-
-document.body.addEventListener("touchmove",function(event){
-	touching = true
-	var touches = event.changedTouches
-	touchX = event.changedTouches[0].clientX
-	touchY = event.changedTouches[0].clientY
-	//console.log(touchX)
-	
-} )
-document.body.addEventListener( "mouseup",function(){
-	clicking = false
-} )
-function ini(){
-	while(num<amount){
-	circles.push(document.getElementById(`circle${num}`).style)
-	rs.push(Math.random()*fadesp)
-	rss.push(0.5+Math.random())//randomSizes
-	ws.push(0)
-	circles[num].backgroundColor = "rgba(0,0,0,0)"
-	circles[num].border = `${2}px solid`
-	circles[num].borderRadius = "50%"
-	circles[num].position = "absolute"
-	circles[num].left = ww*Math.random()
-	circles[num].top = wh*Math.random()
-	alphaArray.push(1)
-	num++
-	}//while
-}ini()
-num=0
-
-
-window.onresize = function(){
-    ww = window.innerWidth
-    wh = window.innerHeight
-}
-
-function update(){
-if(red){
-		if(rColor<255){
-			rColor+=cRate
-		}else{
-			red=false
-			greenMinus=false
-			blueMinus=true
-			green=true
-		}
+	window.onresize = function(){
+		ww = window.innerWidth
+		wh = window.innerHeight
 	}
-	if(redMinus){
-		if(rColor>0){
-			rColor-=cRate
-		}
 
-	}
-	if(green){
-		if(g<255){//r=255,g��0����255�܂ŏ㏸��
-			g+=cRate
-		}else{//r=255���猸��,g=255�̂܂�
-			green=false
-			redMinus = true
-			blueMinus = false
-			blue=true
-		}
-	}
-	if(greenMinus){
-		if(g>0){
-			g-=cRate
-		}
-
-	}
-	if(blue){
-		if(b<255){//
-			b+=cRate
-		}else{
-			blue=false
-			greenMinus = true
-			redMinus = false
-			red=true
-		}
-	}
-	if(blueMinus){
-		if(b>0){
-			b-=cRate
-		}
-
-	}
-function main(){
-		if(!minus){
-		if(nowAmount<amount){
-			nowAmount++
-		}else{
-			minus = true
-			coolTime = MaxCoolTime*Math.random()
-		}
-		}else{//minus
-			if(nowAmount > 0){
-				nowAmount-=1
+	function update(){
+	if(red){
+			if(rColor<255){
+				rColor+=cRate
 			}else{
-				if(coolTime > 0){
-					coolTime -= 1
+				red=false
+				greenMinus=false
+				blueMinus=true
+				green=true
+			}
+		}
+		if(redMinus){
+			if(rColor>0){
+				rColor-=cRate
+			}
+
+		}
+		if(green){
+			if(g<255){//r=255,g��0����255�܂ŏ㏸��
+				g+=cRate
+			}else{//r=255���猸��,g=255�̂܂�
+				green=false
+				redMinus = true
+				blueMinus = false
+				blue=true
+			}
+		}
+		if(greenMinus){
+			if(g>0){
+				g-=cRate
+			}
+
+		}
+		if(blue){
+			if(b<255){//
+				b+=cRate
+			}else{
+				blue=false
+				greenMinus = true
+				redMinus = false
+				red=true
+			}
+		}
+		if(blueMinus){
+			if(b>0){
+				b-=cRate
+			}
+
+		}
+	function main(){
+			if(!minus){
+			if(nowAmount<amount){
+				nowAmount++
+			}else{
+				minus = true
+				coolTime = MaxCoolTime*Math.random()
+			}
+			}else{//minus
+				if(nowAmount > 0){
+					nowAmount-=1
 				}else{
-					minus = false
+					if(coolTime > 0){
+						coolTime -= 1
+					}else{
+						minus = false
+					}
 				}
 			}
-		}
-		//console.log(nowAmount)
-	while(num < amount){
-		ws[num]+=speed/10//rss[num]//ws:circleWidth rss:randomSizes
-		if(alphaArray[num] > 0){
-			alphaArray[num] -= rs[num]
-		}else{
-
-			ws[num] = 0
-			let random = Math.random()
-			if(random >= 0.2){
-				rs[num] = random*fadesp//�s�����x�̒ቺ�X�s�[�h
-			}else{
-				rs[num] = 0.2*fadesp
-			}
-			if(nowAmount > num){
-				//console.log("true")
-				alphaArray[num] = 1
+			//console.log(nowAmount)
+		while(num < amount){
+			ws[num]+=speed/10//rss[num]//ws:circleWidth rss:randomSizes
+			if(alphaArray[num] > 0){
+				alphaArray[num] -= rs[num]
 			}else{
 
-			}
-			circles[num].left = ww*Math.random()
-			circles[num].top = wh*Math.random()
+				ws[num] = 0
+				let random = Math.random()
+				if(random >= 0.2){
+					rs[num] = random*fadesp//�s�����x�̒ቺ�X�s�[�h
+				}else{
+					rs[num] = 0.2*fadesp
+				}
+				if(nowAmount > num){
+					//console.log("true")
+					alphaArray[num] = 1
+				}else{
+
+				}
+				circles[num].left = ww*Math.random()
+				circles[num].top = wh*Math.random()
 
 
-			rss[num] = 0.5+Math.random()
-		}//!alpha[num] > 0
-		circles[num].width = ws[num]
-		circles[num].height = ws[num]
-		if(clicking){
-			let posX = parseInt(circles[num].left)
-			let posY = parseInt(circles[num].top)
-			//console.log(posX+(posX-mouseX)/60)
-			circles[num].left=posX-(posX-mouseX)/60
-			circles[num].top=posY-(posY-mouseY)/60
-		}else if(touching){
-			let posX = parseInt(circles[num].left)
-			let posY = parseInt(circles[num].top)
-			//console.log(posX+(posX-mouseX)/60)
-			circles[num].left=posX-(posX-touchX)/60
-			circles[num].top=posY-(posY-touchY)/60
-		}else{
-			if(clickEventTime > 0){
+				rss[num] = 0.5+Math.random()
+			}//!alpha[num] > 0
+			circles[num].width = ws[num]
+			circles[num].height = ws[num]
+			if(clicking){
 				let posX = parseInt(circles[num].left)
 				let posY = parseInt(circles[num].top)
 				//console.log(posX+(posX-mouseX)/60)
-				circles[num].left=posX+burstSp*(posX-mouseX)/60
-				circles[num].top=posY+burstSp*(posY-mouseY)/60
-				
+				circles[num].left=posX-(posX-mouseX)/60
+				circles[num].top=posY-(posY-mouseY)/60
+			}else if(touching){
+				let posX = parseInt(circles[num].left)
+				let posY = parseInt(circles[num].top)
+				//console.log(posX+(posX-mouseX)/60)
+				circles[num].left=posX-(posX-touchX)/60
+				circles[num].top=posY-(posY-touchY)/60
+			}else{
+				if(clickEventTime > 0){
+					let posX = parseInt(circles[num].left)
+					let posY = parseInt(circles[num].top)
+					//console.log(posX+(posX-mouseX)/60)
+					circles[num].left=posX+burstSp*(posX-mouseX)/60
+					circles[num].top=posY+burstSp*(posY-mouseY)/60
+					
+				}
+			}
+			circles[num].borderColor = `rgba(${rColor},${g},${b},${alphaArray[num]})`
+			num++
+			
+		}//while
+		if(!clicking){
+		clickEventTime-=1
+		//console.log(clickEventTime)
+		}else{
+			clickEventTime = clickETimeMax
+		}
+		//console.log(alphaArray[4])
+		num=0
+	}main()
+
+		if(stop == false){
+			requestAnimationFrame(update)
+		}
+	}update()
+
+	document.addEventListener("keydown",function(event){
+		if(event.key == " "){
+			if(stop == false){
+				stop = true
+			}else{
+				stop = false
+				update()
 			}
 		}
-		circles[num].borderColor = `rgba(${rColor},${g},${b},${alphaArray[num]})`
-		num++
-		
-	}//while
-	if(!clicking){
-	clickEventTime-=1
-	//console.log(clickEventTime)
-	}else{
-		clickEventTime = clickETimeMax
-	}
-	//console.log(alphaArray[4])
-	num=0
-}main()
-
-    if(stop == false){
-        requestAnimationFrame(update)
-    }
-}update()
-
-document.addEventListener("keydown",function(event){
-    if(event.key == " "){
-        if(stop == false){
-            stop = true
-        }else{
-            stop = false
-            update()
-        }
-    }
-})
-}main()
+	})
+	}main()
 
 </script>
 </body>
