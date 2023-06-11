@@ -330,24 +330,30 @@
         }
         animate();
         // クリックイベントの追加
-        renderer.domElement.addEventListener('click', function (event) {
-        const mouse = new THREE.Vector2();
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        function touchClick(){
+            const mouse = new THREE.Vector2();
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        const raycaster = new THREE.Raycaster();
-        raycaster.setFromCamera(mouse, camera);
+            const raycaster = new THREE.Raycaster();
+            raycaster.setFromCamera(mouse, camera);
 
-        const intersects = raycaster.intersectObjects(scene.children, true);
+            const intersects = raycaster.intersectObjects(scene.children, true);
 
-        if (intersects.length > 0) {
-            //alert('Clicked on the cube!');
-            if(sp < 0.1){
-                sp+=0.02
+            if (intersects.length > 0) {
+                //alert('Clicked on the cube!');
+                if(sp < 0.1){
+                    sp+=0.02
+                }
+            }else{
+
             }
-        }else{
-
         }
+        renderer.domElement.addEventListener('click', function (event) {
+            touchClick()
+        });
+        renderer.domElement.addEventListener('touch', function (event) {
+            touchClick()
         });
         // ウィンドウのリサイズイベントハンドラ
         function onWindowResize() {
