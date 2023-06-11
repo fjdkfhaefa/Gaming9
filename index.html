@@ -276,56 +276,90 @@
     </script>
     <script src="https://threejs.org/build/three.js"></script>
     <script>
-// Three.jsの初期化
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+        var sp = 0.005
+        // Three.jsの初期化
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-// カメラの位置設定
-camera.position.z = 5;
+        // カメラの位置設定
+        camera.position.z = 5;
 
-// キューブを格納する配列
-const cubes = [];
+        // キューブを格納する配列
+        const cubes = [];
 
-// ジオメトリとマテリアルの作成
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        // ジオメトリとマテリアルの作成
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 
-// 100個のキューブを作成しシーンに追加
-for (let i = 0; i < 100; i++) {
-    const cube = new THREE.Mesh(geometry, material);
-    cube.position.x = Math.random() * 10 - 5;
-    cube.position.y = Math.random() * 10 - 5;
-    cube.position.z = Math.random() * 10 - 5;
-    scene.add(cube);
-    cubes.push(cube);
-}
+        // 100個のキューブを作成しシーンに追加
+        for (let i = 0; i < 100; i++) {
+            const cube = new THREE.Mesh(geometry, material);
+            cube.position.x = Math.random() * 10 - 5;
+            cube.position.y = Math.random() * 10 - 5;
+            cube.position.z = Math.random() * 10 - 5;
+            scene.add(cube);
+            cubes.push(cube);
+        }
 
-// フォグの設定
-scene.fog = new THREE.Fog(0x000000, 1, 10);
+        // フォグの設定
+        scene.fog = new THREE.Fog(0x000000, 1, 10);
 
-// レンダリングループ
-function animate() {
-    requestAnimationFrame(animate);
+        // レンダリングループ
+        function animate() {
+            requestAnimationFrame(animate);
 
-    // キューブの回転と距離に応じたフォグの更新
-    cubes.forEach(cube => {
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+            // キューブの回転と距離に応じたフォグの更新
+            cubes.forEach(cube => {
+                cube.rotation.x += sp;
+                cube.rotation.y += sp;
 
-        const distance = camera.position.distanceTo(cube.position);
-        const fogNear = 1;
-        const fogFar = 10;
-        const fogDensity = THREE.MathUtils.mapLinear(distance, fogNear, fogFar, 0.01, 0.1);
-        scene.fog.density = fogDensity;
-    });
+                const distance = camera.position.distanceTo(cube.position);
+                const fogNear = 1;
+                const fogFar = 10;
+                const fogDensity = THREE.MathUtils.mapLinear(distance, fogNear, fogFar, sp, sp);
+                scene.fog.density = fogDensity;
+            });
+            if(sp > 0.01){
+                sp-=0.001
+                console.log(sp)
+            }
+            renderer.render(scene, camera);
+        }
+        animate();
+        // クリックイベントの追加
+        renderer.domElement.addEventListener('click', function (event) {
+        const mouse = new THREE.Vector2();
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-    renderer.render(scene, camera);
-}
-animate();
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(mouse, camera);
 
+        const intersects = raycaster.intersectObjects(scene.children, true);
+
+        if (intersects.length > 0) {
+            //alert('Clicked on the cube!');
+            if(sp < 0.1){
+                sp+=0.02
+            }
+        }else{
+
+        }
+        });
+        // ウィンドウのリサイズイベントハンドラ
+        function onWindowResize() {
+            windowWidth = window.innerWidth;
+            windowHeight = window.innerHeight;
+            camera.aspect = windowWidth / windowHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(windowWidth, windowHeight);
+        }
+
+        // ウィンドウのリサイズイベントリスナーの登録
+        window.addEventListener('resize', onWindowResize);
     </script>
     
 </html>
