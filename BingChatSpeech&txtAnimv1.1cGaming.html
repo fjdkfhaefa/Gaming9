@@ -1,6 +1,43 @@
-﻿<body id="body">
+<body id="body">
+    <aside>
+        <a href="index.html"><div id="home"></div></a>
+        <div id="full0" onclick="full0click()">
+            <div class="bow"id="x0" style="width: 22.68px; height: 9.072px; position: relative; left: -27.216px; top: -27.216px;">
+                <div class="bow"id="y0" style="width: 9.072px; height: 22.68px;position: relative; left: 0px; top: 3.1752px;">
+                </div>
+            </div>
+            <div class="bow"id="x1" style="width: 22.68px; height: 9.072px;position: relative; top: -36.288px; left: 20.412px;">
+                <div class="bow"id="y1" style="width: 9.072px; height: 22.68px;position: relative; top: 3.1752px; left: 13.608px;">
+                </div>
+            </div>
+            <div class="bow"id="x2" style="width: 22.68px; height: 9.072px;position: relative; top: 18.144px; left: 20.412px;">
+                <div class="bow"id="y2" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 13.608px;">
+                </div>
+            </div>
+            <div class="bow"id="x3" style="width: 22.68px; height: 9.072px;position: relative; top: 9.072px; left: -27.216px;">
+                <div class="bow"id="y3" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 0px;">
+                </div>
+            </div>
+        </div>
+        <input type="range" id="speed" name="speed"
+        min="0" max="30">
+        <input type="range" id="speed2" name="speed2"
+        min="0" max="100" value="10">
+    </aside>
+    <div id="txtErea">
+    </div>
 </body>
 <style>
+    #txtErea{
+        display: block;
+        width: 100%;
+        height: auto;
+        background-color: rgba(0,0,0,0.7);
+        border-radius: 10px;
+    }
+    body{
+        background-image: url(https://pbs.twimg.com/media/FyJMTtxaUAEGoCj?format=jpg&name=large);
+    }
     aside{
         position:fixed;
         right: -50px;
@@ -42,41 +79,9 @@
         display: block;
     }
 </style>
-<aside>
-    <a href="index.html"><div id="home"></div></a>
-    <div id="full0" onclick="full0click()">
-        <div class="bow"id="x0" style="width: 22.68px; height: 9.072px; position: relative; left: -27.216px; top: -27.216px;">
-            <div class="bow"id="y0" style="width: 9.072px; height: 22.68px;position: relative; left: 0px; top: 3.1752px;">
-            </div>
-        </div>
-        <div class="bow"id="x1" style="width: 22.68px; height: 9.072px;position: relative; top: -36.288px; left: 20.412px;">
-            <div class="bow"id="y1" style="width: 9.072px; height: 22.68px;position: relative; top: 3.1752px; left: 13.608px;">
-            </div>
-        </div>
-        <div class="bow"id="x2" style="width: 22.68px; height: 9.072px;position: relative; top: 18.144px; left: 20.412px;">
-            <div class="bow"id="y2" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 13.608px;">
-            </div>
-        </div>
-        <div class="bow"id="x3" style="width: 22.68px; height: 9.072px;position: relative; top: 9.072px; left: -27.216px;">
-            <div class="bow"id="y3" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 0px;">
-            </div>
-        </div>
-    </div>
-    <input type="range" id="speed" name="speed"
-    min="0.1" max="30">
-    <input type="range" id="speed2" name="speed2"
-    min="1" max="400">
-</aside>
+
 <script>
-    var speed = 400
-    spmeter = document.getElementById("speed")
-	spmeter2 = document.getElementById("speed2")
-	spmeter.addEventListener("input", (event) => {
-		cRate = Number(event.target.value)
-	})
-	spmeter2.addEventListener("input", (event) => {
-		speed = Number(event.target.value)
-	})
+
     function full0click(){
         if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
@@ -160,16 +165,33 @@ var txt0 = `
 また、人工知能のキャラクターと会話することもできました。彼らは私の質問に答えたり、ジョークを言ったり、歌を歌ったりしてくれました。私は一番人気のキャラクターであるミライちゃんと話しました。彼女は可愛らしい見た目と明るい性格で、私に色々なことを教えてくれました。彼女は「私はあなたの友達になりたいです」と言ってくれましたが、それはプログラムされた言葉なのだろうかと思いました。
 
 最後に、空中ジェットコースターに乗ってみました。これは、空中に浮かぶレールに沿って高速で走る乗り物です。私は恐怖と興奮で叫びながら、都市の景色を眺めました。ビルやトレインやロボットが目まぐるしく通り過ぎていきました。私はこの都市が大好きだと思いました。これからも、この都市の冒険と情景を楽しみたいと思いました。`
-
-const uttr = new SpeechSynthesisUtterance(txt0)
+var speed = 1
+var uttr = new SpeechSynthesisUtterance(txt0)
+uttr.rate = speed
 // 発言を再生 (発言キューに発言を追加)
-speechSynthesis.speak(uttr)
+window.speechSynthesis.speak(uttr)
+spmeter = document.getElementById("speed")
+spmeter2 = document.getElementById("speed2")
+spmeter.addEventListener("input", (event) => {
+    cRate = Number(event.target.value)
+})
+spmeter2.addEventListener("input", (event) => {
+    speed = Number(event.target.value)
+    speechSynthesis.cancel()
+    uttr = new SpeechSynthesisUtterance(txt0)
+    uttr.rate = speed/10
+    window.speechSynthesis.speak(uttr)
+    body.textContent = ""
+    count = 0
+})
+function main(){
+
+}
 var txt1 = txt0.split(``)
 var n = [0]
 var space = [0]
-var body = document.getElementById("body")
+var body = document.getElementById("txtErea")
 //body.style.color = "lime"
-body.style.backgroundColor = "black"
 while(n.length < 1717){
     n.push(txt1.indexOf(`\n`,n[n.length-1]+1))
     txt1.splice(n[n.length-1],1,`<br>`)
@@ -206,7 +228,7 @@ function animation(){
         count++
     }else{
         count=0
-	body.innerHTML = ("")
+	    body.textContent = ""
     }
     if(stop == false){
 if(red){
@@ -259,13 +281,14 @@ if(red){
 	}
 	//ctx.fillStyle = `rgb(${r},${g},${b})`
 	body.style.color = `rgb(${r2},${g},${b})`
-        setTimeout(animation,speed*Math.random())
+        setTimeout(animation,((100-speed)*4)*Math.random())
     }
 }animation()
 document.addEventListener("keydown",function(event){
     if(event.key == " "){
         if(stop == false){
             stop = true
+            speechSynthesis.pause()
         }else{
             stop = false
             animation()
