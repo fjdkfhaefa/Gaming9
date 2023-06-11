@@ -277,6 +277,7 @@
     <script src="https://threejs.org/build/three.js"></script>
     <script>
         var sp = 0.005
+        var inisp = 0.004
         // Three.jsの初期化
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -322,7 +323,7 @@
                 const fogDensity = THREE.MathUtils.mapLinear(distance, fogNear, fogFar, sp, sp);
                 scene.fog.density = fogDensity;
             });
-            if(sp > 0.01){
+            if(sp > inisp){
                 sp-=0.001
                 console.log(sp)
             }
@@ -343,7 +344,7 @@
             if (intersects.length > 0) {
                 //alert('Clicked on the cube!');
                 if(sp < 0.1){
-                    sp+=0.02
+                    sp+=0.06
                 }
             }else{
 
