@@ -316,6 +316,9 @@
             cubes.forEach(cube => {
                 cube.rotation.x += sp;
                 cube.rotation.y += sp;
+                material.opacity = 0.5+sp*10; // 透明度を0.5に設定
+                material.transparent = true; // マテリアルを透明にするために必要なフラグを設定
+                material.needsUpdate = true; // マテリアルの変更を反映するためにneedsUpdateフラグを設定
 
                 const distance = camera.position.distanceTo(cube.position);
                 const fogNear = 1;
@@ -325,7 +328,7 @@
             });
             if(sp > inisp){
                 sp-=0.001
-                console.log(sp)
+                //console.log(sp)
             }
             renderer.render(scene, camera);
         }
@@ -355,7 +358,7 @@
         });
         renderer.domElement.addEventListener('touch', function (event) {
             touchClick()
-            alert("もう寝たいの！")
+            //alert("もう寝たいの！")
         });
         // ウィンドウのリサイズイベントハンドラ
         function onWindowResize() {
