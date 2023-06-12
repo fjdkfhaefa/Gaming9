@@ -449,6 +449,9 @@ spmeter2.addEventListener("input", (event) => {
 document.getElementById("pause").addEventListener("click",function(){
     pauseAnimation()
 })
+document.getElementById("pause").addEventListener("touch",function(){
+    pauseAnimation()
+})
 function pauseAnimation() {
     if(stop == false){
         stop = true
