@@ -455,11 +455,11 @@ spmeter2.addEventListener("input", (event) => {
 function pauseAnimation() {
     if (speechSynthesis.paused) {
         speechSynthesis.resume();
-        stop = true
+        stop = false
         window.speechSynthesis.pause();
         animation()
     }else{
-        stop = false
+        stop = true
         window.speechSynthesis.pause();
     }
 }
