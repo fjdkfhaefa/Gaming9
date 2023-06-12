@@ -23,10 +23,34 @@
         <input type="range" id="speed2" name="speed2" min="0" max="100" value="10">
         <input type="text" id="textInput" placeholder="Enter text">
         <button onclick="pauseAnimation()">Pause</button>
+        <div class="check">
+            <input type="checkbox" id="toggleSwitch">自動削除&nbsp;
+        </div>
     </aside>
     <div id="txtErea"></div>
 </body>
 <style>
+    .check {
+        transform: scale(3);
+        margin-right: 160px;
+        margin-top: 50px;
+        float: right;
+        color: white;
+        font-size: 50%;
+        width: max-content;
+        height: max-content;
+        display: flex;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease; /* トランジション効果を追加 */
+    }
+
+    .check:hover {
+        background-color: rgba(0, 0, 0, 0.4); /* ホバー時の背景色 */
+        color: #fff; /* ホバー時の文字色 */
+    }
+
     #textInput {
         padding: 10px;
         font-size: 16px;
@@ -268,6 +292,7 @@ var text3 = `二足歩行で歩く豚と野生の黄色のネズミときのこ�
 var speed = 1
 var selectedTxt = text3
 var uttr = new SpeechSynthesisUtterance(selectedTxt)
+var repeat = true
 uttr.rate = speed
 // 発言を再生 (発言キューに発言を追加)
 window.speechSynthesis.speak(uttr)
@@ -276,6 +301,21 @@ spmeter2 = document.getElementById("speed2")
 spmeter.addEventListener("input", (event) => {
     cRate = Number(event.target.value)
 })
+// チェックボックスを取得
+var checkbox = document.getElementById("toggleSwitch");
+
+// 取得したチェックボックスに対して処理を行う
+checkbox.addEventListener("change", function() {
+    if (this.checked) {
+        // チェックされた場合の処理
+        console.log("チェックされました");
+        repeat = false
+    } else {
+        // チェックが外された場合の処理
+        console.log("チェックが外れました");
+        repeat = true
+    }
+});
 function ini(){
     speechSynthesis.cancel()
     uttr = new SpeechSynthesisUtterance(selectedTxt)
@@ -288,6 +328,11 @@ function ini(){
     uttr.addEventListener("end", function () {
         // 読み上げが終了したらリピートする
         window.speechSynthesis.speak(uttr)
+        if(repeat == false){
+            document.getElementById("textInput").value = ""
+            reload()
+        }
+
     });
 
 }
@@ -314,13 +359,15 @@ function pauseAnimation() {
         animation()
     }
 }
-
-document.getElementById("textInput").addEventListener("input", function () {
+function reload(){
     var inputText = document.getElementById("textInput").value;
     selectedTxt = inputText
     ini()
     convert()
     animation()
+}
+document.getElementById("textInput").addEventListener("input", function () {
+    reload()
     // 入
 })
 
