@@ -19,15 +19,65 @@
                 </div>
             </div>
         </div>
-        <input type="range" id="speed" name="speed"
-        min="0" max="30">
-        <input type="range" id="speed2" name="speed2"
-        min="0" max="100" value="10">
+        <input type="range" id="speed" name="speed" min="0" max="30">
+        <input type="range" id="speed2" name="speed2" min="0" max="100" value="10">
+        <input type="text" id="textInput" placeholder="Enter text">
+        <button onclick="pauseAnimation()">Pause</button>
     </aside>
-    <div id="txtErea">
-    </div>
+    <div id="txtErea"></div>
 </body>
 <style>
+    #textInput {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border: 4px solid white;
+        border-radius: 6px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.3s ease,color 0.3s ease,background-color 0.3s ease;
+        float: right; /* 右寄せ */
+        width: 200px; /* 必要な幅を指定 */
+        background-color: transparent; /* 背景色を透明にする */
+        color: white; /* テキストの初期色を白にする */
+        margin-right: 100px; /* 右からの距離を調整 */
+        margin-top:150px;
+    }
+
+    #textInput:hover {
+        border-color: skyblue; /* ホバー時のボーダーの色 */
+        color: skyblue; /* ホバー時のテキストの色 */
+        background-color:rgba(135, 207, 235, 0.233)
+    }
+
+    #textInput:focus {
+        outline: none;
+        border-color: skyblue; /* 入力中のボーダーの色 */
+        color: skyblue; /* 入力中のテキストの色 */
+        background-color:rgba(135, 207, 235, 0.233)
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: white solid 4px;
+        border-radius: 6px;
+        background-color: transparent;
+        color: white;
+        transition: border-color 0.3s ease,color 0.3s ease,background-color 0.3s ease;
+        float: right;
+        margin-right: 100px;
+        margin-top: 50px;
+    }
+
+    button:hover {
+        border-color: skyblue; /* ホバー時の背景色を水色に設定 */
+        color: skyblue;
+        background-color: rgba(135, 207, 235, 0.233)
+    }
+
+
+
+
     #txtErea{
         display: block;
         width: 100%;
@@ -91,9 +141,9 @@
         // サイズを取得
 
     }
-//txt0は2DシューティングのBIGINNINGのコードだけどここではタイピング風アニメーション作るための
+//selectedTxtは2DシューティングのBIGINNINGのコードだけどここではタイピング風アニメーション作るための
 //見かけのコードでただの文字列
-var txt0 = `
+var text0 = `
 ２０３０年までに起こることのはなし
 
 ２０３０年までに、世界はどのように変わるでしょうか。私は、以下のようなことが起こると予想しています。
@@ -165,8 +215,59 @@ var txt0 = `
 また、人工知能のキャラクターと会話することもできました。彼らは私の質問に答えたり、ジョークを言ったり、歌を歌ったりしてくれました。私は一番人気のキャラクターであるミライちゃんと話しました。彼女は可愛らしい見た目と明るい性格で、私に色々なことを教えてくれました。彼女は「私はあなたの友達になりたいです」と言ってくれましたが、それはプログラムされた言葉なのだろうかと思いました。
 
 最後に、空中ジェットコースターに乗ってみました。これは、空中に浮かぶレールに沿って高速で走る乗り物です。私は恐怖と興奮で叫びながら、都市の景色を眺めました。ビルやトレインやロボットが目まぐるしく通り過ぎていきました。私はこの都市が大好きだと思いました。これからも、この都市の冒険と情景を楽しみたいと思いました。`
+var text1 = `
+タケノコドリルがホテルに突撃する話
+
+ある日、とあるホテルの前に巨大なタケノコドリルが現れた。タケノコドリルとは、タケノコのような形をしたドリルで、地中を掘り進むことができる不思議な生き物だ。タケノコドリルはホテルの入り口に向かってドリルを回転させ、壁を破壊しようとした。ホテルの従業員や宿泊客はパニックに陥り、逃げ惑った。タケノコドリルは何のためにホテルに突撃したのだろうか？実は、タケノコドリルはホテルのオーナーに恨みを持っていたのだ。オーナーは以前、タケノコドリルの住処だった森を切り開いてホテルを建てたのだ。タケノコドリルは自分の家を奪われたことに怒り、復讐を誓ったのだ。タケノコドリルはホテルを破壊することで、オーナーに悪い仕返しをしようとしたのだった。
+タケノコドリルは、地下からホテルのロビーに突然現れた。彼は驚いた客や従業員を無視して、エレベーターに乗り込んだ。彼は最上階のスイートルームを目指していた。なぜなら、そこには彼が探していたものがあったからだ。タケノコドリルは、自分の正体を隠すために、人間の姿に変身できる能力を持っていた。彼はかつて、そのホテルに泊まったことがあった。そのとき、彼は自分の大切なものを部屋に忘れてしまった。それは、彼の故郷であるタケノコの森への帰り道を示す地図だった。タケノコドリルは、その地図を取り戻すために、何年もかけて地下を掘り進んできたのだ。彼はついに、目的地に到着したと思った。しかし、彼がスイートルームのドアを開けると、そこには別の客がいた。彼は慌てて逃げ出そうとしたが、エレベーターは故障していた。彼は階段を使って降りようとしたが、そこには警備員が待ち構えていた。彼はどうすることもできなくなった。彼は最後の手段として、自分の本当の姿に戻って、窓から飛び出した。彼は空中でドリルを回転させて、地面に穴を開けた。彼はその穴に入って、地下へと消えていった。彼はまだ、自分の故郷への帰り道を探している。
+タケノコドリルとは、さまざまな大きさの穴を開けるための段が付いている円錐形のドリルです。タケノコのような形をしていることから、この名前がつきました。タケノコドリルの形状と機能と作り方について、以下のように説明できます。
+- 形状: タケノコドリルは、先端が細くて根元が太い円錐形をしています。その表面には、一定の間隔で段が付いており、それぞれの段には刃があります。刃の数は2枚刃や3枚刃などがあります。また、表面にはチタンコーティングやスパイラル加工などが施されているものもあります。シャンク部分は六角軸や三面取りなどがあります。
+- 機能: タケノコドリルは、電気ドリルやボール盤などに取り付けて使用します。薄い鉄板やステンレス、プラスチック板やFRP板などに穴を開けたり広げたりすることができます。押し込む深さによって任意のサイズの穴を開けることができます。また、穴を開けると同時にバリ取りや面取りもできます。
+- 作り方: タケノコドリルは、主にハイス鋼やコバルトハイスなどの工具材質を使用して作られます。円錐形のブランクに切削加工や熱処理を施して段と刃を作ります。その後、チタンコーティングやスパイラル加工などの表面処理を行います。シャンク部分は六角軸や三面取りなどに加工します。
+`
+var text2 = `私は考古学者として、タケノコに覆われた古代都市の発掘に参加しました。その都市は何千年も前に滅びたと言われていましたが、その原因は謎でした。私たちはタケノコを切り開きながら、石造りの建物や彫像、壁画などを発見しました。その中には、タケノコと人間が共存していたことを示すものもありました。しかし、やがて私たちは恐ろしい事実に気づきました。タケノコはただの植物ではなく、知性を持った生命体だったのです。そして、彼らは私たちの侵入に怒っていました。私たちはタケノコの攻撃を受けて、逃げるしかありませんでした。私はかろうじて生き延びましたが、あの都市の秘密は永遠に解明されないままでしょう。
+キノコに覆われた氷の島にある古代遺跡の話
+
+私は考古学者として、キノコに覆われた氷の島にある古代遺跡の調査に参加しました。この遺跡は、何千年も前に滅びた文明の名残でした。遺跡は巨大なドーム状の建造物で、内部には謎めいた装置や彫刻がありました。私たちは、この遺跡がどのような目的で作られたのか、どのような人々が住んでいたのか、どうして滅んだのかを探ろうとしました。しかし、調査は困難を極めました。まず、遺跡への道は氷と雪で覆われており、危険な動物や植物も多くありました。次に、遺跡自体はキノコに侵されており、呼吸や触覚に影響を及ぼす可能性がありました。さらに、遺跡の中には罠や仕掛けもありました。私たちは何度も命の危険にさらされましたが、それでも諦めませんでした。私たちは、この遺跡が隠している秘密を解き明かすことができると信じていました。
+氷の上のキノコが発信する信号の届く範囲を調べる話
+
+私は氷の上に生えるキノコに興味があります。このキノコは、他のキノコと交信するために特殊な信号を発信しています。しかし、この信号はどれくらい遠くまで届くのでしょうか？私はこの疑問を解決するために、氷の上のキノコを探して、信号の強度を測定する実験を行いました。実験の結果、氷の上のキノコの信号は、約10メートル以内であれば受信できることがわかりました。しかし、それ以上離れると、信号は弱くなってしまいます。これは、氷の上のキノコが密集して生えていることや、氷が信号を反射することなどが原因だと考えられます。氷の上のキノコは、自分たちのコミュニティを保つために、信号を使っています。私はこの発見に感動しました。氷の上のキノコは、私たちにとって不思議な存在ですが、彼らにも独自の文化や生態があることを教えてくれます。
+川底にあるこけが魚に食べられた話
+
+ある日、川底に生えていたこけは、自分の存在に満足していました。彼は川の水に揺れながら、太陽の光を浴びて光合成をしていました。彼は自分の役割を誇りに思っていました。彼は川の水をきれいにするだけでなく、小さな生き物たちにも餌や住処を提供していました。
+
+しかし、その平和な日々は突然終わりを告げました。ある朝、彼はいつものように目を覚ましましたが、何かが違うことに気づきました。彼の周りには、魚の群れが泳いでいました。彼は最初は驚きましたが、すぐに安心しました。彼は魚たちと仲良くなれると思っていました。彼は魚たちに挨拶しようとしましたが、魚たちは彼に無視しました。それどころか、彼の葉っぱをかじり始めました。彼は悲鳴を上げましたが、誰も助けてくれませんでした。彼は必死に逃げようとしましたが、根が川底にしっかりと張り付いていて動けませんでした。彼はやがて魚たちに食べ尽くされてしまいました。
+
+こうして、川底にあるこけが魚に食べられた話は終わります。この話から学ぶべき教訓は何でしょうか？それは、自分の立場を過信しないことです。自分が安全だと思っている場所でも、危険が潜んでいるかもしれません。自分の力を過大評価しないことです。自分が強いと思っている相手でも、弱点があるかもしれません。そして、自分の仲間を大切にすることです。自分一人ではなく、周りの人たちと協力しながら生きていくことです。
+`
+var text3 = `二足歩行で歩く豚と野生の黄色のネズミときのこ島の話
+
+ある日、二足歩行で歩く豚が森の中を散歩していました。彼は自分のような不思議な動物に出会えるかもしれないと期待していました。すると、彼は木の上に野生の黄色いネズミを見つけました。ネズミは豚に気づいて、興味深そうに話しかけました。
+
+「こんにちは、君は何者だい？」
+
+「僕は二足歩行で歩く豚だよ。君は？」
+
+「僕は野生の黄色いネズミだよ。君はどこから来たの？」
+
+「僕はきのこ島から来たんだ。きのこ島は不思議な島で、きのこがたくさん生えているんだ。」
+
+「きのこ島？それは面白そうだね。僕も見てみたいな。」
+
+「じゃあ、一緒に行こうよ。きのこ島は森の向こうにあるから、すぐに着くよ。」
+
+そう言って、二足歩行で歩く豚と野生の黄色いネズミは仲良く手をつないで、きのこ島へと向かいました。
+二足歩行で歩く豚と野生で黄色のネズミのきのこ島ので決闘をして核戦争になる話
+
+ある日、きのこ島に二足歩行で歩く豚がやってきた。豚は自分が最強の生き物だと思っていたが、島には野生で黄色のネズミが住んでいた。ネズミは豚を見て、侵略者だと思った。豚とネズミはすぐに喧嘩を始めた。豚はネズミを蹴り飛ばそうとしたが、ネズミは素早く避けた。ネズミは豚に噛みつこうとしたが、豚は皮が厚くて痛くなかった。二匹は互いに傷つけられなかった。
+
+やがて、豚とネズミは自分たちの仲間を呼び寄せた。豚は他の島から二足歩行で歩く豚を連れてきた。ネズミは島中の野生で黄色のネズミを集めた。二つの軍団はきのこ島で激しく戦った。しかし、どちらも勝てなかった。豚とネズミは最終兵器を使うことにした。豚は核爆弾を持ってきた。ネズミは放射能をまき散らすキノコを用意した。二つの兵器は同時に爆発した。きのこ島は一瞬で消滅した。豚とネズミも全滅した。核戦争は終わった。
+
+`
+
 var speed = 1
-var uttr = new SpeechSynthesisUtterance(txt0)
+var selectedTxt = text3
+var uttr = new SpeechSynthesisUtterance(selectedTxt)
 uttr.rate = speed
 // 発言を再生 (発言キューに発言を追加)
 window.speechSynthesis.speak(uttr)
@@ -175,34 +276,84 @@ spmeter2 = document.getElementById("speed2")
 spmeter.addEventListener("input", (event) => {
     cRate = Number(event.target.value)
 })
-spmeter2.addEventListener("input", (event) => {
-    speed = Number(event.target.value)
+function ini(){
     speechSynthesis.cancel()
-    uttr = new SpeechSynthesisUtterance(txt0)
+    uttr = new SpeechSynthesisUtterance(selectedTxt)
     uttr.rate = speed/10
     window.speechSynthesis.speak(uttr)
     body.textContent = ""
     count = 0
-})
-function main(){
+    var text = "読み上げるテキスト";
+
+    uttr.addEventListener("end", function () {
+        // 読み上げが終了したらリピートする
+        window.speechSynthesis.speak(uttr)
+    });
 
 }
-var txt1 = txt0.split(``)
+window.addEventListener('beforeunload', function (event) {
+    // `speechSynthesis`の読み上げを停止する
+    speechSynthesis.cancel();
+});
+spmeter2.addEventListener("input", (event) => {
+    speed = Number(event.target.value)
+    stop = false
+    ini()
+    convert()
+    animation()
+    
+})
+function pauseAnimation() {
+    //alert("しね")
+    if(stop == false){
+        stop = true
+        speechSynthesis.pause();
+    }else{
+        stop = false
+        speechSynthesis.resume();
+        animation()
+    }
+}
+
+document.getElementById("textInput").addEventListener("input", function () {
+    var inputText = document.getElementById("textInput").value;
+    selectedTxt = inputText
+    ini()
+    convert()
+    animation()
+    // 入
+})
+
+var txt1 = 0
 var n = [0]
 var space = [0]
-var body = document.getElementById("txtErea")
+var body = 0
 //body.style.color = "lime"
-while(n.length < 1717){
-    n.push(txt1.indexOf(`\n`,n[n.length-1]+1))
-    txt1.splice(n[n.length-1],1,`<br>`)
-}
-while(space.length < 34145){
-    space.push(txt1.indexOf(` `,space[space.length-1]+1))
-    txt1.splice(space[space.length-1],1,`&nbsp;`)
-}
 
-console.log(n)
-console.log(txt1)
+var lineBreaks = 0
+var spaces = 0
+function convert(){
+    txt1 = selectedTxt.split(``)
+    n = [0]
+    space = [0]
+    body = document.getElementById("txtErea")
+    //body.style.color = "lime"
+
+    lineBreaks = (selectedTxt.match(/\n/g) || []).length;
+    spaces = (selectedTxt.match(/ /g) || []).length;
+
+    //console.log("空白の数:", spaces);
+    //console.log("改行の数:", lineBreaks);
+
+    while(n.length < lineBreaks){
+        n.push(txt1.indexOf(`\n`,n[n.length-1]+1))
+        txt1.splice(n[n.length-1],1,`<br>`)
+    }
+    while(space.length < spaces){
+        space.push(txt1.indexOf(` `,space[space.length-1]+1))
+        txt1.splice(space[space.length-1],1,`&nbsp;`)
+    }
+}convert()
 var r = 255
 var r2 = 255
 var g = 0
@@ -286,13 +437,7 @@ if(red){
 }animation()
 document.addEventListener("keydown",function(event){
     if(event.key == " "){
-        if(stop == false){
-            stop = true
-            speechSynthesis.pause()
-        }else{
-            stop = false
-            animation()
-        }
+        pauseAnimation()
     }
 })
 </script>
