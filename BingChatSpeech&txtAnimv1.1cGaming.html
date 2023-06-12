@@ -26,6 +26,9 @@
         <div class="check">
             <input type="checkbox" id="toggleSwitch">自動削除&nbsp;
         </div>
+        <div class="check">
+            <input type="checkbox" id="realTime" checked="checked">随時入力&nbsp;
+        </div>
     </aside>
     <div id="txtErea"></div>
 </body>
@@ -301,6 +304,7 @@ var speed = 1
 var selectedTxt = text3
 var uttr = new SpeechSynthesisUtterance(selectedTxt)
 var repeat = true
+var realTime = true
 uttr.rate = speed
 // 発言を再生 (発言キューに発言を追加)
 window.speechSynthesis.speak(uttr)
@@ -311,6 +315,7 @@ spmeter.addEventListener("input", (event) => {
 })
 // チェックボックスを取得
 var checkbox = document.getElementById("toggleSwitch");
+var isRealTime = document.getElementById("realTime");
 
 // 取得したチェックボックスに対して処理を行う
 checkbox.addEventListener("change", function() {
@@ -322,6 +327,17 @@ checkbox.addEventListener("change", function() {
         // チェックが外された場合の処理
         console.log("チェックが外れました");
         repeat = true
+    }
+});
+isRealTime.addEventListener("change", function() {
+    if (this.checked) {
+        // チェックされた場合の処理
+        console.log("チェックされました");
+        realTime = true
+    } else {
+        // チェックが外された場合の処理
+        console.log("チェックが外れました");
+        realTime = false
     }
 });
 function ini(){
@@ -374,8 +390,20 @@ function reload(){
     convert()
     animation()
 }
+
 document.getElementById("textInput").addEventListener("input", function () {
-    reload()
+    if(realTime){
+        reload()
+    }
+    
+    // 入
+})
+document.getElementById("textInput").addEventListener("blur", function () {
+    if(realTime){
+    }else{
+        reload()
+    }
+
     // 入
 })
 
