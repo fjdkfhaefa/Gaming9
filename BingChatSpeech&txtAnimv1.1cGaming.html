@@ -256,7 +256,7 @@ var deleted = false
 uttr.rate = speed
 // 発言を再生 (発言キューに発言を追加)
 uttr.volume = 1.0
-window.speechSynthesis.speak(uttr)
+speechSynthesis.speak(uttr)
 spmeter = document.getElementById("speed")
 spmeter2 = document.getElementById("speed2")
 spmeter.addEventListener("input", (event) => {
@@ -293,7 +293,7 @@ function ini(){
     speechSynthesis.cancel()
     uttr = new SpeechSynthesisUtterance(selectedTxt)
     uttr.rate = speed/10
-    window.speechSynthesis.speak(uttr)
+    speechSynthesis.speak(uttr)
     body.textContent = ""
     count = 0
     var text = "読み上げるテキスト";
@@ -301,13 +301,13 @@ function ini(){
     uttr.addEventListener("end", function () {
         // 読み上げが終了したらリピートする
         uttr.volume = 1.0
-        window.speechSynthesis.speak(uttr)
+        speechSynthesis.speak(uttr)
         if(repeat == false && deleted == false){//読み上げが終わったかつ随時入力オフ
             //alert("製作中")
             document.getElementById("textInput").value = ""
             selectedTxt = ""
             deleted = true
-            window.speechSynthesis.cancel()
+            speechSynthesis.cancel()
             //ini()は実行済み
             convert()
             animation()
@@ -334,11 +334,11 @@ document.getElementById("pause").addEventListener("click",function(){
 function pauseAnimation() {
     if(stop == false){
         stop = true
-        window.speechSynthesis.pause();
+        speechSynthesis.pause();
     }else{
         stop = false
-        uttr.volume = 1.0;
-        window.speechSynthesis.resume();
+        //uttr.volume = 1.0;
+        speechSynthesis.resume();
         animation()
     }
 }
