@@ -453,16 +453,14 @@ spmeter2.addEventListener("input", (event) => {
     
 })
 function pauseAnimation() {
-    if(stop == false){
+    if (speechSynthesis.paused) {
+        speechSynthesis.resume();
         stop = true
         window.speechSynthesis.pause();
+        animation()
     }else{
         stop = false
-        speechSynthesis.resume();
-        speechSynthesis.resume();
-        speechSynthesis.resume();
-        speechSynthesis.resume();
-        animation()
+        window.speechSynthesis.pause();
     }
 }
 function reload(){
