@@ -1,0 +1,474 @@
+
+<!-- saved from url=(0075)https://fjdkfhaefa.github.io/Gaming9/BingChatSpeech&txtAnimv1.1cGaming.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body id="body">
+    <aside>
+        <div id="ninja">
+            <a href="https://fjdkfhaefa.github.io/Gaming9/index.html"><div id="home"></div></a>
+            <div id="full0" onclick="full0click()">
+                <div class="bow" id="x0" style="width: 22.68px; height: 9.072px; position: relative; left: -27.216px; top: -27.216px;">
+                    <div class="bow" id="y0" style="width: 9.072px; height: 22.68px;position: relative; left: 0px; top: 3.1752px;">
+                    </div>
+                </div>
+                <div class="bow" id="x1" style="width: 22.68px; height: 9.072px;position: relative; top: -36.288px; left: 20.412px;">
+                    <div class="bow" id="y1" style="width: 9.072px; height: 22.68px;position: relative; top: 3.1752px; left: 13.608px;">
+                    </div>
+                </div>
+                <div class="bow" id="x2" style="width: 22.68px; height: 9.072px;position: relative; top: 18.144px; left: 20.412px;">
+                    <div class="bow" id="y2" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 13.608px;">
+                    </div>
+                </div>
+                <div class="bow" id="x3" style="width: 22.68px; height: 9.072px;position: relative; top: 9.072px; left: -27.216px;">
+                    <div class="bow" id="y3" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 0px;">
+                    </div>
+                </div>
+            </div>
+            <label for="speed" class="input-label">RGB速度</label>
+            <input type="range" id="speed" name="speed" min="0" max="30" class="input-field">
+            
+            <label for="speed2" class="input-label">再生速度</label>
+            <input type="range" id="speed2" name="speed2" min="0" max="100" value="10" class="input-field">
+            
+            <label for="pitch" class="input-label">音の高さ</label>
+            <input type="range" id="pitch" name="pitch" min="0" max="100" value="100" class="input-field">
+            <input type="text" id="textInput" placeholder="Enter text">
+            <button id="pause">Pause</button>
+            <div class="check">
+                <input type="checkbox" id="toggleSwitch"checked="checked">自動削除&nbsp;
+            </div>
+            <div class="check">
+                <input type="checkbox" id="realTime" >随時入力&nbsp;
+            </div>
+
+        </div>
+        <button class="menu-button" onclick="ninja()">忍者</button>
+
+    </aside>
+    <script src="https://github.com/fjdkfhaefa/Gaming9/blob/main/foodsDb.js" type="module">
+        import { foods } from 'https://github.com/fjdkfhaefa/Gaming9/blob/main/foodsDb.js';
+        var foodsAry = foods.split('\n');
+        console.log(foodsAry)
+    </script>
+    <div id="parent">
+        <div id="txtErea" style="color: rgb(255, 120, 140);"></div>
+        
+    </div>
+    <footer>
+        <div id="c">
+            <p>Copyright © 2023 ⑨な人PJT. All Rights Reserved.<br>DesighnWidth ChatGPT</p>
+        </div>
+    </footer>
+    <style>
+        /* 全体のスタイル */
+        .input-field {
+        width: 100%;
+        }
+        #textInput {
+        width: 100%;
+        margin: 0 auto 10px 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-image: url("path/to/your/image.jpg");
+            background-size: cover;
+        }
+    
+        /* アサイド要素 */
+        aside {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin-right: 10px;
+        }
+    
+        /* メニューボタン */
+        .menu-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+    
+        .menu-button:hover {
+            background-color: rgba(135, 206, 250, 0.5);
+        }
+    
+        /* 要素配置コンテナ */
+        #parent {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            padding: 10px;
+            flex-grow: 1;
+        }
+    
+        /* テキストエリア */
+        #txtErea {
+            color: white;
+            font-size: 150%;
+        }
+    
+        /* フッター */
+        footer {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            transition: height 0.3s ease;
+        }
+    
+        /* コピーライトテキスト */
+        #c p {
+            margin: 0;
+            text-align: center;
+        }
+    
+        /* フォーカス時のスタイル */
+        :focus {
+            outline: none;
+        }
+    
+        /* ボタンやinput要素のスタイル */
+        button,
+        input[type="checkbox"],
+        input[type="text"] {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 5px;
+            margin-bottom: 5px;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            font-size: 150%;
+        }
+    
+        button:hover,
+        input[type="checkbox"]:hover,
+        input[type="text"]:hover {
+            background-color: rgba(135, 206, 250, 0.5);
+        }
+    
+        /* チェックボックスのスタイル */
+        .check {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 150%;
+            display: inline-block;
+        }
+        .check input[type="checkbox"] {
+            width: 50px;
+            height: 50px;
+
+
+        }
+        /* ラベルのスタイル */
+        label {
+            color: white;
+            font-size: 150%;
+        }
+    
+        /* 縦の長さが短い場合のフッターのスタイル */
+        @media (max-height: 300px) {
+            footer {
+                display: none;
+           
+            }
+        }
+    </style>
+    
+
+    
+    
+    
+
+<script>
+    var hide = false
+    function ninja(){
+        if(hide == false){
+            document.getElementById("ninja").style.display = "none"
+            hide = true
+        }else{
+            document.getElementById("ninja").style.display = "block"
+            hide = false
+        }
+
+    }
+    function full0click(){
+        if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+        }
+        // サイズを取得
+
+    }
+//selectedTxtは2DシューティングのBIGINNINGのコードだけどここではタイピング風アニメーション作るための
+//見かけのコードでただの文字列
+var text0 = `左の欄に入力してください。現在開発中です。`
+
+var speed = 1
+var pitchNum = 2
+var selectedTxt = text0
+var uttr = new SpeechSynthesisUtterance(selectedTxt)
+var repeat = false
+var realTime = false
+var deleted = false
+uttr.rate = speed
+// 発言を再生 (発言キューに発言を追加)
+speechSynthesis.speak(uttr)
+spmeter = document.getElementById("speed")
+spmeter2 = document.getElementById("speed2")
+spmeter.addEventListener("input", (event) => {
+    cRate = Number(event.target.value)
+})
+// チェックボックスを取得
+var checkbox = document.getElementById("toggleSwitch");
+var isRealTime = document.getElementById("realTime");
+
+// 取得したチェックボックスに対して処理を行う
+checkbox.addEventListener("change", function() {
+    if (this.checked) {
+        // チェックされた場合の処理
+        console.log("チェックされました");
+        repeat = false
+    } else {
+        // チェックが外された場合の処理
+        console.log("チェックが外れました");
+        repeat = true
+    }
+});
+isRealTime.addEventListener("change", function() {
+    if (this.checked) {
+        // チェックされた場合の処理
+        console.log("チェックされました");
+        realTime = true
+    } else {
+        // チェックが外された場合の処理
+        console.log("チェックが外れました");
+        realTime = false
+    }
+});
+
+function ini(){
+    speechSynthesis.cancel()
+    uttr = new SpeechSynthesisUtterance(selectedTxt)
+    uttr.rate = speed/10
+    uttr.pitch = pitchNum/50
+    uttr.volume = 1.0
+    speechSynthesis.speak(uttr)
+    body.textContent = ""
+    count = 0
+    var text = "読み上げるテキスト";
+    
+    uttr.addEventListener("end", function () {
+        // 読み上げが終了したらリピートする
+        
+        speechSynthesis.speak(uttr)
+        if(repeat == false && deleted == false){//読み上げが終わったかつ随時入力オフ
+            //alert("製作中")
+            document.getElementById("textInput").value = ""
+            selectedTxt = ""
+            deleted = true
+            speechSynthesis.cancel()
+            //ini()は実行済み
+            convert()
+            animation()
+        }
+
+    });
+
+}
+window.addEventListener('beforeunload', function (event) {
+    // `speechSynthesis`の読み上げを停止する
+    speechSynthesis.cancel();
+});
+spmeter2.addEventListener("input", (event) => {
+    speed = Number(event.target.value)
+    stop = false
+    ini()
+    convert()
+    animation()
+    
+})
+var _pitch = document.getElementById("pitch");
+
+_pitch.addEventListener("input", (event) => {
+    pitchNum = Number(event.target.value)
+    stop = false
+    ini()
+    convert()
+    animation()
+    
+})
+document.getElementById("pause").addEventListener("click",function(){
+    pauseAnimation()
+})
+function pauseAnimation() {
+    if(stop == false){
+        stop = true
+        speechSynthesis.pause();
+    }else{
+        stop = false
+        //uttr.volume = 1.0;
+        speechSynthesis.resume();
+        animation()
+    }
+}
+function reload(){
+    var inputText = document.getElementById("textInput").value;
+    selectedTxt = inputText
+    ini()
+    convert()
+    animation()
+}
+
+document.getElementById("textInput").addEventListener("input", function () {
+    if(realTime == true){
+        deleted = false
+        reload()
+    }else{
+        
+    }
+    
+    // 入
+})
+document.getElementById("textInput").addEventListener("blur", function () {
+    if(realTime == false){
+        deleted = false
+        reload()
+    }else{
+
+    }
+
+    // 入
+})
+
+var txt1 = 0
+var n = [0]
+var space = [0]
+var body = 0
+//body.style.color = "lime"
+
+var lineBreaks = 0
+var spaces = 0
+function convert(){
+    txt1 = selectedTxt.split(``)
+    n = [0]
+    space = [0]
+    body = document.getElementById("txtErea")
+    //body.style.color = "lime"
+
+    lineBreaks = (selectedTxt.match(/\n/g) || []).length;
+    spaces = (selectedTxt.match(/ /g) || []).length;
+
+    //console.log("空白の数:", spaces);
+    //console.log("改行の数:", lineBreaks);
+
+    while(n.length < lineBreaks){
+        n.push(txt1.indexOf(`\n`,n[n.length-1]+1))
+        txt1.splice(n[n.length-1],1,`<br>`)
+    }
+    while(space.length < spaces){
+        space.push(txt1.indexOf(` `,space[space.length-1]+1))
+        txt1.splice(space[space.length-1],1,`&nbsp;`)
+    }
+}convert()
+var r = 255
+var r2 = 255
+var g = 0
+var b = 0
+var red=false
+var redMinus = true
+var green = true
+var greenMinus = false
+var blue = false
+var blueMinus = false
+
+var count = 0
+var top = 0
+var fonts = 10
+var stop = false
+var cRate = 10
+var spNum = 0
+function animation(){
+    if(count < txt1.length){
+
+        body.insertAdjacentHTML('beforeend',txt1[count])
+        window.scrollTo(0,200000)
+        count++
+    }else{
+        count=0
+	    body.textContent = ""
+    }
+    if(stop == false){
+if(red){
+		if(r2<255){
+			r2+=cRate
+		}else{
+			red=false
+			greenMinus=false
+			blueMinus=true
+			green=true
+		}
+	}
+	if(redMinus){
+		if(r2>0){
+			r2-=cRate
+		}
+
+	}
+	if(green){
+		if(g<255){//r=255,gは0から255まで上昇中
+			g+=cRate
+		}else{//r=255から減少,g=255のまま
+			green=false
+			redMinus = true
+			blueMinus = false
+			blue=true
+		}
+	}
+	if(greenMinus){
+		if(g>0){
+			g-=cRate
+		}
+
+	}
+	if(blue){
+		if(b<255){//
+			b+=cRate
+		}else{
+			blue=false
+			greenMinus = true
+			redMinus = false
+			red=true
+		}
+	}
+	if(blueMinus){
+		if(b>0){
+			b-=cRate
+		}
+
+	}
+	//ctx.fillStyle = `rgb(${r},${g},${b})`
+	body.style.color = `rgb(${r2},${g},${b})`
+        setTimeout(animation,((100-speed)*5)*Math.random())
+    }
+}animation()
+document.addEventListener("keydown",function(event){
+    if(event.key == " "){
+        pauseAnimation()
+    }
+})
+</script>
+</body></html>
