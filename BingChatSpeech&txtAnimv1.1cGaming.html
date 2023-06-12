@@ -1,22 +1,24 @@
-<body id="body">
+
+<!-- saved from url=(0075)https://fjdkfhaefa.github.io/Gaming9/BingChatSpeech&txtAnimv1.1cGaming.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body id="body">
     <aside>
         <div id="ninja">
-            <a href="index.html"><div id="home"></div></a>
+            <a href="https://fjdkfhaefa.github.io/Gaming9/index.html"><div id="home"></div></a>
             <div id="full0" onclick="full0click()">
-                <div class="bow"id="x0" style="width: 22.68px; height: 9.072px; position: relative; left: -27.216px; top: -27.216px;">
-                    <div class="bow"id="y0" style="width: 9.072px; height: 22.68px;position: relative; left: 0px; top: 3.1752px;">
+                <div class="bow" id="x0" style="width: 22.68px; height: 9.072px; position: relative; left: -27.216px; top: -27.216px;">
+                    <div class="bow" id="y0" style="width: 9.072px; height: 22.68px;position: relative; left: 0px; top: 3.1752px;">
                     </div>
                 </div>
-                <div class="bow"id="x1" style="width: 22.68px; height: 9.072px;position: relative; top: -36.288px; left: 20.412px;">
-                    <div class="bow"id="y1" style="width: 9.072px; height: 22.68px;position: relative; top: 3.1752px; left: 13.608px;">
+                <div class="bow" id="x1" style="width: 22.68px; height: 9.072px;position: relative; top: -36.288px; left: 20.412px;">
+                    <div class="bow" id="y1" style="width: 9.072px; height: 22.68px;position: relative; top: 3.1752px; left: 13.608px;">
                     </div>
                 </div>
-                <div class="bow"id="x2" style="width: 22.68px; height: 9.072px;position: relative; top: 18.144px; left: 20.412px;">
-                    <div class="bow"id="y2" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 13.608px;">
+                <div class="bow" id="x2" style="width: 22.68px; height: 9.072px;position: relative; top: 18.144px; left: 20.412px;">
+                    <div class="bow" id="y2" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 13.608px;">
                     </div>
                 </div>
-                <div class="bow"id="x3" style="width: 22.68px; height: 9.072px;position: relative; top: 9.072px; left: -27.216px;">
-                    <div class="bow"id="y3" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 0px;">
+                <div class="bow" id="x3" style="width: 22.68px; height: 9.072px;position: relative; top: 9.072px; left: -27.216px;">
+                    <div class="bow" id="y3" style="width: 9.072px; height: 22.68px;position: relative; top: -15.876px; left: 0px;">
                     </div>
                 </div>
             </div>
@@ -25,17 +27,19 @@
             <input type="text" id="textInput" placeholder="Enter text">
             <button onclick="pauseAnimation()">Pause</button>
             <div class="check">
-                <input type="checkbox" id="toggleSwitch">自動削除&nbsp;
+                <input type="checkbox" id="toggleSwitch"checked="checked">自動削除&nbsp;
             </div>
             <div class="check">
-                <input type="checkbox" id="realTime" checked="checked">随時入力&nbsp;
+                <input type="checkbox" id="realTime" >随時入力&nbsp;
             </div>
             
         </div>
         <button class="menu-button" onclick="ninja()">忍者</button>
     </aside>
-    <div id="txtErea"></div>
-</body>
+    <div id="parent">
+        <div id="txtErea" style="color: rgb(255, 120, 140);"></div>
+    </div>
+
 <style>
     .menu-button {
     padding: 10px 20px;
@@ -132,12 +136,18 @@
     }
 
 
-
+    #parent{
+        display: flex;
+        width: 96%;
+        height: max-content;
+        min-height: 100px;
+        justify-content: center;
+        
+    }
 
     #txtErea{
         display: block;
-        width: 98%;
-        height: auto;
+        width: 100%;
         background-color: rgba(0,0,0,0.7);
         border-radius: 10px;
         padding: 10px;
@@ -173,16 +183,16 @@
         background-color: skyblue;
     }
     #speed{
-        right: 50px;
-        width:150px;
+        right: 100px;
+        width:200px;
         top:100px;
         position:relative;
         display: block;
         transform: scale(1.5);
     }
     #speed2{
-        right: 50px;
-        width:150px;
+        right: 100px;
+        width:200px;
         top:120px;
         position:relative;
         display: block;
@@ -338,8 +348,8 @@ var text3 = `二足歩行で歩く豚と野生の黄色のネズミときのこ�
 var speed = 1
 var selectedTxt = text3
 var uttr = new SpeechSynthesisUtterance(selectedTxt)
-var repeat = true
-var realTime = true
+var repeat = false
+var realTime = false
 var deleted = false
 uttr.rate = speed
 // 発言を再生 (発言キューに発言を追加)
@@ -562,7 +572,7 @@ if(red){
 	}
 	//ctx.fillStyle = `rgb(${r},${g},${b})`
 	body.style.color = `rgb(${r2},${g},${b})`
-        setTimeout(animation,((100-speed)*4)*Math.random())
+        setTimeout(animation,((100-speed)*5)*Math.random())
     }
 }animation()
 document.addEventListener("keydown",function(event){
@@ -571,3 +581,4 @@ document.addEventListener("keydown",function(event){
     }
 })
 </script>
+</body></html>
