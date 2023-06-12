@@ -387,7 +387,7 @@ function ini(){
     uttr.addEventListener("end", function () {
         // 読み上げが終了したらリピートする
         window.speechSynthesis.speak(uttr)
-        if(repeat == false){
+        if(realTime == false){
             document.getElementById("textInput").value = ""
             reload()
         }
@@ -434,8 +434,7 @@ document.getElementById("textInput").addEventListener("input", function () {
     // 入
 })
 document.getElementById("textInput").addEventListener("blur", function () {
-    if(realTime){
-    }else{
+    if(realTime == false){
         reload()
     }
 
