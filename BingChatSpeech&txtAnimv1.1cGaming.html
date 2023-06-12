@@ -25,9 +25,7 @@
             <input type="range" id="speed" name="speed" min="0" max="30">
             <input type="range" id="speed2" name="speed2" min="0" max="100" value="10">
             <input type="text" id="textInput" placeholder="Enter text">
-            <div class="check">
-                <input type="checkbox" id="pause">一時中断&nbsp;
-            </div>
+            <button id="pause">Pause</button>
             <div class="check">
                 <input type="checkbox" id="toggleSwitch"checked="checked">自動削除&nbsp;
             </div>
@@ -410,10 +408,6 @@ isRealTime.addEventListener("change", function() {
         realTime = false
     }
 });
-var _pause = document.getElementById("pause")
-_pause.addEventListener("change", function() {
-    pauseAnimation()
-});
 function ini(){
     speechSynthesis.cancel()
     uttr = new SpeechSynthesisUtterance(selectedTxt)
@@ -452,14 +446,17 @@ spmeter2.addEventListener("input", (event) => {
     animation()
     
 })
+document.getElementById("pause").addEventListener("click",function(){
+    pauseAnimation()
+})
 function pauseAnimation() {
-    if (speechSynthesis.paused) {
-        speechSynthesis.resume();
-        stop = false
-        animation()
-    }else{
+    if(stop == false){
         stop = true
-        window.speechSynthesis.pause();
+        speechSynthesis.pause();
+    }else{
+        stop = false
+        speechSynthesis.resume();
+        animation()
     }
 }
 function reload(){
