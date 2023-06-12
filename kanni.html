@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>テキスト読み上げ</title>
+</head>
+<body>
+  <div>
+    <textarea id="textArea" rows="5" cols="50"></textarea>
+    <button onclick="speakText()">読み上げる</button>
+    <button onclick="pauseSpeech()">一時停止</button>
+    <button onclick="stopSpeech()">停止</button>
+    <label for="volumeSlider">音量調整:</label>
+    <input id="volumeSlider" type="range" min="0" max="1" step="0.1" value="1" oninput="adjustVolume(this.value)">
+    <label for="rateSlider">速度調整:</label>
+    <input id="rateSlider" type="range" min="0.5" max="2" step="0.1" value="1" oninput="adjustRate(this.value)">
+    <br>
+    <label for="repeatCheckbox">繰り返し読み上げ:</label>
+    <input id="repeatCheckbox" type="checkbox">
+  </div>
+
+  <script>
+    const synthesis = window.speechSynthesis;
+    let utterance = null;
+    let isSpeaking = false;
+    let isPaused = false;
+
+    function speakText() {
+      const text = document.getElementById('textArea').value;
+      if (text.trim() !== '') {
+        if (isSpeaking) {
+          stopSpeech();
+        }
+
+        utterance = new SpeechSynthesisUtterance(text);
+        utterance.onend = handleEnd;
+        synthesis.speak(utterance);
+        isSpeaking = true;
+        isPaused = false;
+      }
+    }
+
+    function pauseSpeech() {
+      if (isSpeaking && !isPaused) {
+        synthesis.pause();
+        isPaused = true;
+      } else if (isSpeaking && isPaused) {
+        synthesis.resume();
+        isPaused = false;
+      }
+    }
+
+    function stopSpeech() {
+      if (isSpeaking) {
+        synthesis.cancel();
+        isSpeaking = false;
+        isPaused = false;
+      }
+    }
+
+    function adjustVolume(volume) {
+      if (isSpeaking) {
+        utterance.volume = volume;
+      }
+    }
+
+    function adjustRate(rate) {
+      if (isSpeaking) {
+        utterance.rate = rate;
+      }
+    }
+
+    function handleEnd() {
+      isSpeaking = false;
+      isPaused = false;
+
+      const repeatCheckbox = document.getElementById('repeatCheckbox');
+      if (repeatCheckbox.checked) {
+        speakText();
+      }
+    }
+  </script>
+</body>
+</html>
