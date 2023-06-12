@@ -340,6 +340,7 @@ var selectedTxt = text3
 var uttr = new SpeechSynthesisUtterance(selectedTxt)
 var repeat = true
 var realTime = true
+var deleted = false
 uttr.rate = speed
 // 発言を再生 (発言キューに発言を追加)
 window.speechSynthesis.speak(uttr)
@@ -383,13 +384,19 @@ function ini(){
     body.textContent = ""
     count = 0
     var text = "読み上げるテキスト";
-
+    
     uttr.addEventListener("end", function () {
         // 読み上げが終了したらリピートする
         window.speechSynthesis.speak(uttr)
-        if(repeat == false && realTime == false){//読み上げが終わったかつ随時入力オフ
+        if(repeat == false && deleted == false){//読み上げが終わったかつ随時入力オフ
+            //alert("製作中")
             document.getElementById("textInput").value = ""
-            reload()
+            selectedTxt = ""
+            deleted = true
+            window.speechSynthesis.cancel()
+            //ini()は実行済み
+            convert()
+            animation()
         }
 
     });
@@ -428,6 +435,7 @@ function reload(){
 
 document.getElementById("textInput").addEventListener("input", function () {
     if(realTime == true){
+        deleted = false
         reload()
     }else{
         
@@ -437,6 +445,7 @@ document.getElementById("textInput").addEventListener("input", function () {
 })
 document.getElementById("textInput").addEventListener("blur", function () {
     if(realTime == false){
+        deleted = false
         reload()
     }else{
 
