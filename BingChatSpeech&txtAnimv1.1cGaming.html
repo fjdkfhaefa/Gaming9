@@ -456,7 +456,6 @@ function pauseAnimation() {
     if (speechSynthesis.paused) {
         speechSynthesis.resume();
         stop = false
-        window.speechSynthesis.pause();
         animation()
     }else{
         stop = true
