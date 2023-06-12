@@ -25,7 +25,7 @@
             <input type="range" id="speed" name="speed" min="0" max="30">
             <input type="range" id="speed2" name="speed2" min="0" max="100" value="10">
             <input type="text" id="textInput" placeholder="Enter text">
-            <button onclick="pauseAnimation()">Pause</button>
+            <button id="pause">Pause</button>
             <div class="check">
                 <input type="checkbox" id="toggleSwitch"checked="checked">自動削除&nbsp;
             </div>
@@ -446,8 +446,10 @@ spmeter2.addEventListener("input", (event) => {
     animation()
     
 })
+document.getElementById("pause").addEventListener("click",function(){
+    pauseAnimation()
+})
 function pauseAnimation() {
-    //alert("しね")
     if(stop == false){
         stop = true
         speechSynthesis.pause();
