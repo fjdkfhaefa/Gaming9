@@ -387,7 +387,7 @@ function ini(){
     uttr.addEventListener("end", function () {
         // 読み上げが終了したらリピートする
         window.speechSynthesis.speak(uttr)
-        if(realTime == false){
+        if(repeat == false){//読み上げが終わったら消す
             document.getElementById("textInput").value = ""
             reload()
         }
