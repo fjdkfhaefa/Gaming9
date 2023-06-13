@@ -228,7 +228,7 @@
 var text0 = `左の欄に入力してください。現在開発中です。`
 
 var speed = 5
-var pitchNum = 2
+var pitchNum = 100
 var selectedTxt = text0
 var uttr = new SpeechSynthesisUtterance(selectedTxt)
 var repeat = false
@@ -362,6 +362,7 @@ var katakanaText = "コンニチハ";
 var hiraganaText = katakanaToHiragana(katakanaText);
 var inputText = ""
 var isLoaded = 0
+
 function search(){
     isLoaded++
     if(isChat){
@@ -372,22 +373,31 @@ function search(){
         var perfect = foodsAry.filter(item => item.includes(inputText));
         //console.log(matchingItems)
         if(matchingItems.length > 0){//候補が複数見つかった場合
-            if(perfect.length > 0){
+            if(perfect.length > 0){//inputの文字列と配列の先頭から２文字完全一致
                 selectedTxt = "一致する要素が見つかりました。:"+perfect
             }else{
                 selectedTxt = "以下の要素をお探しですか？:"+matchingItems
             }
             //console.log(perfect);
         }else{
-            if(isHiragana(inputText) && isLoaded < 2){
-                inputText=hiraganaToKatakana(inputText)
-                search()
-            }else if(isKatakana(inputText) && isLoaded < 2){
-                inputText=katakanaToHiragana(inputText)
-                search()
+            var research = foodsAry.filter(function(element) {
+                return element.includes(inputText.substring(0, 2));
+            });
+            if(research.length > 0){
+                selectedTxt = "以下の要素をお探しですか？:"+research.join(", "); // 配列をカンマ区切りの文字列に変換
+                console.log(selectedTxt)
             }else{
-                selectedTxt = "一致する要素はありませんでした"+inputText
+                if(isHiragana(inputText) && isLoaded < 2){
+                    inputText=hiraganaToKatakana(inputText)
+                    search()
+                }else if(isKatakana(inputText) && isLoaded < 2){
+                    inputText=katakanaToHiragana(inputText)
+                    search()
+                }else{
+                    selectedTxt = "一致する要素はありませんでした"+inputText
+                }
             }
+
             
         }
     }
