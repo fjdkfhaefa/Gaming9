@@ -251,22 +251,22 @@ var chat = document.getElementById("chat");
 checkbox.addEventListener("change", function() {
     if (this.checked) {
         // チェックされた場合の処理
-        console.log("チェックされました");
+        //console.log("チェックされました");
         repeat = false
     } else {
         // チェックが外された場合の処理
-        console.log("チェックが外れました");
+        //console.log("チェックが外れました");
         repeat = true
     }
 });
 chat.addEventListener("change", function() {
     if (this.checked) {
         // チェックされた場合の処理
-        console.log("チェックされました");
+        //console.log("チェックされました");
         isChat = true
     } else {
         // チェックが外された場合の処理
-        console.log("チェックが外れました");
+        //console.log("チェックが外れました");
         isChat = false
     }
 });
@@ -337,28 +337,69 @@ function pauseAnimation() {
     }
 }
 var machNum = 2
-function reload(){
-    var inputText = document.getElementById("textInput").value;
-    selectedTxt = inputText
+function isKatakana(_text) {
+  return /^[\u30A0-\u30FFー]+$/.test(_text);
+}
+
+function isHiragana(_text) {
+  return /^[\u3040-\u309Fー]+$/.test(_text);
+}
+function katakanaToHiragana(_text) {
+  return _text.replace(/[\u30A1-\u30F6]/g, function(match) {
+    var code = match.charCodeAt(0) - 0x60;
+    return String.fromCharCode(code);
+  });
+}
+function hiraganaToKatakana(_text) {
+  return _text.replace(/[\u3041-\u3096]/g, function(match) {
+    var code = match.charCodeAt(0) + 0x60;
+    return String.fromCharCode(code);
+  });
+}
+
+// 使用例
+var katakanaText = "コンニチハ";
+var hiraganaText = katakanaToHiragana(katakanaText);
+var inputText = ""
+var isLoaded = 0
+function search(){
+    isLoaded++
     if(isChat){
         // a の先頭から2文字が b の要素の先頭から2文字以上と完全に一致する場合の処理
         var matchingItems = foodsAry.filter(item => {
             return item.slice(0, machNum) === inputText.slice(0, machNum);
         });
         var perfect = foodsAry.filter(item => item.includes(inputText));
-        console.log(matchingItems)
+        //console.log(matchingItems)
         if(matchingItems.length > 0){//候補が複数見つかった場合
             if(perfect.length > 0){
                 selectedTxt = "一致する要素が見つかりました。:"+perfect
             }else{
                 selectedTxt = "以下の要素をお探しですか？:"+matchingItems
             }
-            console.log(perfect);
+            //console.log(perfect);
         }else{
-            selectedTxt = "一致する要素はありませんでした"+inputText
+            if(isHiragana(inputText) && isLoaded < 2){
+                inputText=hiraganaToKatakana(inputText)
+                search()
+            }else if(isKatakana(inputText) && isLoaded < 2){
+                inputText=katakanaToHiragana(inputText)
+                search()
+            }else{
+                selectedTxt = "一致する要素はありませんでした"+inputText
+            }
+            
         }
     }
+    
+}
+console.log(hiraganaText);  // こんにちは
 
+function reload(){
+    inputText = document.getElementById("textInput").value;
+    selectedTxt = inputText
+    search()
+    isLoaded = 0
     ini()
     convert()
     animation()
