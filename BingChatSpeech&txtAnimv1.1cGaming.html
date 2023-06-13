@@ -22,8 +22,14 @@
                     </div>
                 </div>
             </div>
-            <input type="range" id="speed" name="speed" min="0" max="30">
-            <input type="range" id="speed2" name="speed2" min="0" max="100" value="10">
+            <label for="speed" class="input-label">RGB速度</label>
+            <input type="range" id="speed" name="speed" min="0" max="30" class="input-field">
+            
+            <label for="speed2" class="input-label">再生速度</label>
+            <input type="range" id="speed2" name="speed2" min="0" max="100" value="10" class="input-field">
+            
+            <label for="pitch" class="input-label">音の高さ</label>
+            <input type="range" id="pitch" name="pitch" min="0" max="100" value="100" class="input-field">
             <input type="text" id="textInput" placeholder="Enter text">
             <button id="pause">Pause</button>
             <div class="check">
@@ -32,198 +38,172 @@
             <div class="check">
                 <input type="checkbox" id="realTime" >随時入力&nbsp;
             </div>
+            <div class="check">
+                <input type="checkbox" id="chat" checked="checked">ChatGPTアシスト&nbsp;
+            </div>
 
         </div>
         <button class="menu-button" onclick="ninja()">忍者</button>
 
     </aside>
-    
+
     <div id="parent">
         <div id="txtErea" style="color: rgb(255, 120, 140);"></div>
         
     </div>
     <footer>
         <div id="c">
-            <p>Copyright © 2023 ⑨な人PJT. All Rights Reserved.</p>
+            <p>Copyright © 2023 ⑨な人PJT. All Rights Reserved.<br>DesighnWidth ChatGPT</p>
         </div>
     </footer>
-<style>
-    footer{
-        background-color: #333;
-        text-align: center;
-        width:100%;
-        height: 60px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        color:white;
-    }
-    #c{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .menu-button {
-    padding: 10px 20px;
-    font-size: 200%;
-    border: none;
-    background-color: rgba(255,255,255,0.7);
-    color: #333;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s linear;
-    }
-
-    .menu-button:hover,
-    .menu-button:focus {
-    background-color: transparent;
-    background-image: linear-gradient(to right, rgba(255,255,255,0.7), transparent);
-    }
-
-    .menu-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px #999;
-    }
-    .check {
-        transform: scale(3);
-        margin-right: 160px;
-        margin-top: 50px;
-        float: right;
-        color: white;
-        font-size: 50%;
-        width: max-content;
-        height: max-content;
-        display: flex;
-        align-items: center;
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
-        transition: background-color 0.3s ease, color 0.3s ease; /* トランジション効果を追加 */
-    }
-
-    .check:hover {
-        background-color: rgba(0, 0, 0, 0.4); /* ホバー時の背景色 */
-        color: #fff; /* ホバー時の文字色 */
-    }
-
-    #textInput {
-        padding: 10px;
-        font-size: 150%;
-        border: none;
-        border: 4px solid white;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: border-color 0.3s ease,color 0.3s ease,background-color 0.3s ease;
-        float: right; /* 右寄せ */
-        width: 200px; /* 必要な幅を指定 */
-        background-color: rgba(0, 0, 0, 0.1); /* 背景色を透明にする */
-        color: white; /* テキストの初期色を白にする */
-        margin-right: 100px; /* 右からの距離を調整 */
-        margin-top:150px;
-        width: 300px;
-        height: 60px;
-    }
-
-    #textInput:hover {
-        border-color: skyblue; /* ホバー時のボーダーの色 */
-        color: skyblue; /* ホバー時のテキストの色 */
-        background-color:rgba(135, 207, 235, 0.233)
-    }
-
-    #textInput:focus {
-        outline: none;
-        border-color: skyblue; /* 入力中のボーダーの色 */
-        color: skyblue; /* 入力中のテキストの色 */
-        background-color:rgba(0, 0, 0, 0.4);
-    }
-
-    button {
-        padding: 10px 20px;
-        font-size: 16px;
-        border: white solid 4px;
-        border-radius: 10px;
-        background-color: rgba(0, 0, 0, 0.1);
-        color: white;
-        transition: border-color 0.3s ease,color 0.3s ease,background-color 0.3s ease;
-        float: right;
-        margin-right: 100px;
-        margin-top: 40px;
-        font-size: 170%;
-        padding: 10px;
-    }
-
-    button:hover {
-        border-color: skyblue; /* ホバー時の背景色を水色に設定 */
-        color: skyblue;
-        background-color: rgba(135, 207, 235, 0.233)
-    }
-
-
-    #parent{
-        display: flex;
-        width: 96%;
-        height: max-content;
-        min-height: 100px;
-        justify-content: center;
-        
-    }
-
-    #txtErea{
-        display: block;
+    <style>
+        /* 全体のスタイル */
+        .input-field {
         width: 100%;
-        background-color: rgba(0,0,0,0.7);
-        border-radius: 10px;
-        padding: 10px;
-        font-size: 150%;
-    }
-    body{
-        background-image: url(https://pbs.twimg.com/media/FyJMTtxaUAEGoCj?format=jpg&name=large);
-    }
-    aside{
-        position:fixed;
-        right: -50px;
-        width: 250px;
-    }
-    #home{
-        position: relative;
-		right: -50px;
-        width:50px;height:50px;border:solid 10px gray;border-radius:100px;margin:20px;
-    }
-    #home:hover{
-        border-color: skyblue;
-    }
-    .bow{
-        background-color: gray
-    }
-    #full0{
-        width: auto;
-        height: auto;
-        position:relative;
-        top:50px;
-        right: -100px;
-    }
-    #full0:hover .bow{
-        background-color: skyblue;
-    }
-    #speed{
-        right: 100px;
-        width:200px;
-        top:100px;
-        position:relative;
-        display: block;
-        transform: scale(1.5);
-    }
-    #speed2{
-        right: 100px;
-        width:200px;
-        top:120px;
-        position:relative;
-        display: block;
-        transform: scale(1.5);
-    }
-</style>
+        }
+        #textInput {
+        width: 100%;
+        margin: 0 auto 10px 0;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-image: url("path/to/your/image.jpg");
+            background-size: cover;
+            overflow-y: hidden;
+        }
+    
+        /* アサイド要素 */
+        aside {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin-right: 0px;
+            overflow-y: hidden;
+        }
+
+        /* メニューボタン */
+        .menu-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+    
+        .menu-button:hover {
+            background-color: rgba(135, 206, 250, 0.5);
+        }
+    
+        /* 要素配置コンテナ */
+        #parent {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            padding: 0px;
+            flex-grow: 1;
+            width: 100%;
+            height: 200px;
+            background-color: black;
+        }
+    
+        /* テキストエリア */
+        #txtErea {
+            color: white;
+            font-size: 150%;
+            height: max-content;
+            background-color: gray;
+        }
+    
+        /* フッター */
+        footer {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            transition: height 0.3s ease;
+        }
+    
+        /* コピーライトテキスト */
+        #c p {
+            margin: 0;
+            text-align: center;
+        }
+    
+        /* フォーカス時のスタイル */
+        :focus {
+            outline: none;
+        }
+    
+        /* ボタンやinput要素のスタイル */
+        button,
+        input[type="checkbox"],
+        input[type="text"] {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 5px;
+            margin-bottom: 5px;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            font-size: 150%;
+        }
+    
+        button:hover,
+        input[type="checkbox"]:hover,
+        input[type="text"]:hover {
+            background-color: rgba(135, 206, 250, 0.5);
+        }
+    
+        /* チェックボックスのスタイル */
+        .check {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 150%;
+            display: inline-block;
+        }
+        .check input[type="checkbox"] {
+            width: 50px;
+            height: 50px;
+
+
+        }
+        /* ラベルのスタイル */
+        label {
+            color: white;
+            font-size: 150%;
+        }
+    
+        /* 縦の長さが短い場合のフッターのスタイル */
+        @media (max-height: 300px) {
+            footer {
+                display: none;
+           
+            }
+        }
+    </style>
+    
+
+    
+    
+    
 
 <script>
+    alert("二次転載禁止")
     var hide = false
+    var foodsAry = ["寿司（すし）- お寿司は、酢飯に生魚やシーフードをのせた料理です。","ラーメン - 日本の人気のある麺料理で、スープに中華麺と具材が入っています。","うどん - 太い麺が特徴の日本の麺料理で、一般的には出汁の中に入れて食べます。","そば - うどんと同様に麺料理ですが、細い麺が特徴で、蕎麦粉を使用して作られます。","お好み焼き（おこのみやき）- キャベツ、豚肉、麺などを混ぜて焼き上げた日本の独特なパンケーキ風料理です。","てんぷら - 野菜や海鮮を衣で揚げた日本料理です。","おでん - 大根、こんにゃく、卵、魚などを出汁で煮込んだ日本の煮物料理です。","焼き鳥（やきとり）- 小さな串に刺した鶏肉を炭火で焼いた料理です。","おにぎり - ごはんを手で握り、海苔で包んだお弁当の定番です。","お茶漬け（おちゃづけ）- 温かいごはんにお茶やだしをかけた料理で、具材をのせて食べます。","刺身（さしみ）- 生の魚や貝を薄く切った料理","お茶（おちゃ）- 日本で一般的な茶の飲み物","たこ焼き（たこやき）- タコを入れた小さな丸い焼きパンケーキ","焼きそば（やきそば）- 焼いた中華麺に野菜や肉を炒めた料理","カレーライス - カレーソースをかけたごはんと一緒に食べる料理","おでん - 大根、こんにゃく、卵、魚などを出汁で煮込んだ日本の煮物料理","焼き肉（やきにく）- 炭火で肉を焼いて食べる料理","焼き魚（やきざかな）- 魚を焼いた料理","カツ丼（かつどん）- カツ（とんかつなど）をごはんの上に乗せた料理","グラタン - オーブンで焼いた、野菜や肉、チーズが入った料理","オムライス - 卵焼きでごはんを包んだ料理","すき焼き（すきやき）- 牛肉や野菜を甘辛いたれで煮る料理","もつ鍋（もつなべ）- もつ（牛の内臓）と野菜を鍋で煮込む料理","ユッケ（육회）- 牛肉の刺身にたれをつけて食べる韓国由来の料理","おうどん - 四国地方などで食べられる太い麺の料理","あんこ - 豆や果物を砂糖で煮てつぶした甘いペースト","たい焼き（たいやき）- 魚の形をした焼き菓子で、あんこやクリームを入れたもの","しゃぶしゃぶ - 薄く切った肉や野菜を湯にくぐらせて食べる料理","お赤飯（おせきはん）- ごはんを赤く染めた、祝いの料理","おにぎり - ごはんを手で握り、海苔で包んだお弁当の定番","てんぷら - 野菜や海鮮を衣で揚げた料理","お好み焼き（おこのみやき）- キャベツ、豚肉、麺などを混ぜて焼き上げた料理","おそば - 蕎麦粉を使用した細長い麺の料理","お茶漬け（おちゃづけ）- 温かいごはんにお茶やだしをかけた料理","焼き鳥（やきとり）- 小さな串に刺した鶏肉を炭火で焼いた料理","ざるそば - そばをざるで湯がいた上に盛り、冷たく食べる料理","すしロール - 寿司の具材を海苔で巻いたロール状の料理","焼きおにぎり（やきおにぎり）- おにぎりを焼いたり、グリルで焼いたりした料理","ラーメン - スープに中華麺と具材が入った日本の麺料理","ちらし寿司（ちらしずし）- 酢飯に刺身や野菜などを盛り付けた寿司の一種","たんかん - 温州みかんとも呼ばれる、日本の代表的な柑橘類","かれーぱん（カレーパン）- 中にカレーが詰まったパン","わらび餅（わらびもち）- わらび粉を使って作られたもちもちした餅","かき氷（かきごおり）- 氷を削ってフルーツシロップなどで味付けしたデザート","カツカレー（かつかれー）- カツ（とんかつなど）とカレーライスの組み合わせ","いなり寿司（いなりずし）- 稲荷寿司とも呼ばれ、揚げた豆腐に酢飯を詰めた寿司の一種","きつねうどん - うどんに甘辛いたれと揚げた油揚げ（きつね）が乗った料理","たらこご飯（たらこごはん）- 明太子や辛子明太子をごはんにのせた料理","お赤飯（おせきはん）- もち米を赤く染めて炊いた、祝いの料理","おでん - 大根、こんにゃく、卵、魚などを出汁で煮込んだ日本の煮物料理","ちゃんこ鍋（ちゃんこなべ）- 相撲取りが食べるとされる、野菜と肉を入れた鍋料理","めんたいこ（明太子）- 魚の卵を塩漬けにした辛味のある食品","お吸い物（おすいもの）- 出汁を取ったスープの一種","ふわふわオムレツ - 卵で作られたふんわりとしたオムレツ","カキフライ - カキを衣で包み、揚げた料理","焼きまんじゅう - 小麦粉の皮で包んだあんこを焼いたまんじゅう","もちもちお餅（もちもちおもち）- もち米を蒸してついた、もちもちした食感のお餅","やきそばパン - 焼きそばをパンに挟んだ料理","いちご大福（いちごだいふく）- あんこで包んだもち米とイチゴの組み合わせのお菓子","とんかつ（豚カツ）- 豚肉をパン粉で衣をつけて揚げた料理","たいやき - 一般的なたい焼きとは異なり、もっちりとした生地で作られるケーキ","かつお節（かつおぶし）- カツオの身を干して削ったもので、出汁の素材として使われる","焼きおにぎり（やきおにぎり）- おにぎりを焼いたり、グリルで焼いたりする料理","そばめし - そばの実を使ったごはんのことで、独特の香りと風味があります","たこわさび - タコを刺身として食べる際に添えられるわさびを使った料理","たらの芽 - タラの若い芽を使った料理","とろろそば（とろろそば）- そばの上に山芋のとろろを乗せた料理","おしるこ - 甘い豆や米を煮たデザートスープ","たこ煮 - タコを醤油やみりんで煮込んだ料理","ふろふき大根 - 大根を醤油や出汁で煮込んだ料理","あじの南蛮漬け - アジの刺身に酢としょうゆで漬けた料理","もんじゃ焼き - キャベツや肉、麺を生地で固めて焼いた料理","オクラのおひたし - オクラを茹でて醤油や出汁で和えた料理","とん汁 - 豚肉や野菜を出汁で煮込んだ汁物","焼き餃子 - 肉や野菜を包んだ餃子を焼いた料理","さばの味噌煮 - サバを甘辛い味噌で煮込んだ料理","ほうとう - 野菜や麺を入れた郷土料理","きんぴらごぼう - ごぼうを細切りにして炒めた料理","豚キムチ - 豚肉とキムチを炒めた料理","あさりの味噌汁 - あさりを出汁で煮込んだ味噌汁","さばの塩焼き - サバを塩で焼いた料理","なめこ汁 - なめこを出汁で煮込んだスープ","たたきごぼう - ごぼうを細切りにして叩いて作る料理","とろろごはん - 山芋のとろろをごはんにのせた料理","かれーうどん - カレーソースをかけたうどんの料理","キムチ鍋 - キムチと野菜を入れた鍋料理","あんみつ - あんこやフルーツ、シロップをかけたデザート","きんつば - 小豆の甘露煮を包んだもちもちした餅菓子","おかゆ - 米を煮たシンプルな粥","フォアグラ - 肝臓を使用した高級食材","タラバガニ - 北海道などで水揚げされるカニの一種","ムール貝 - 黒い殻とオレンジ色の身が特徴の貝類","オクラ - キュウリのような形をした野菜","ジャガイモのフライ - じゃがいもを揚げた料理","チキンティッカ - インド料理の一種で、スパイスを効かせた鶏肉の串焼き","タルタルソース - 魚料理やフライに添えるソース","モッツァレラチーズ - イタリア料理でよく使われる、とろりとした食感のチーズ","カポナータ - イタリア料理の一種で、なすやトマトを煮込んだ煮物","ウコン - スパイスとして使用される黄色い粉末","ハラペーニョ - メキシコ原産の辛みのある唐辛子","カキフライ - カキを衣で包んで揚げた料理","グリーンカレー - タイ料理の一種で、辛い緑色のカレー","モロッコ料理 - タジンやクスクスなど、モロッコの伝統的な料理","パクチー - 香草の一種で、タイ料理などに使われる","パルミジャーノ・レッジャーノ - イタリア料理でよく使われる固いチーズ","プルコギ - 韓国料理の一種で、甘辛いタレで調理した肉料理","メキシカンロール - メキシコ料理の一種で、トルティーヤに具材を巻いた巻き寿司のようなもの","ベーコンウラミ - パンにベーコンを挟んで焼いたサンドイッチ","キャベツのロールキャベツ - キャベツで具材を巻いて調理した料理","フィッシュアンドチップス - イギリス料理の一種で、揚げた魚とフライドポテトの組み合わせ","シュラスコ - ブラジル料理の一種で、串焼きの肉をテーブルサービスで提供","フライドチキン - 鶏肉を衣で包んで揚げた料理","サワークリーム - 乳製品を発酵させたクリームの一種","ブリトー - メキシコ料理の一種で、トルティーヤに具材を巻いた巻き寿司のようなもの","シナモンロール - シナモン風味の生地を巻いて焼いたスイーツ","タラの子 - タラの卵巣を食べる料理","レバーペースト - 鳥や豚のレバーをペースト状にした料理","マルゲリータピザ - トマトソース、モッツァレラチーズ、バジルをのせたシンプルなピザ","タコス - メキシコ料理の一種で、トルティーヤに具材をのせた料理","シーザーサラダ - ロメインレタスをベースにしたサラダにドレッシングをかけた料理","グラタン - 野菜や肉、魚をホワイトソースやチーズで焼いた料理","ウズラの卵 - ウズラの卵を調理した料理","タピオカパール - タピオカをボール状にした食材","クワトロフォルマッジ - イタリア料理の一種で、4種類のチーズを使用した料理","カレーパン - 中にカレーを詰めたパン","チキンカツ - 鶏肉をパン粉で衣をつけて揚げた料理","イカの塩辛 - イカの内臓を塩漬けにした食品","ハワイアンピザ - ピザにハムとパイナップルをのせた料理","チーズケーキ - チーズを主成分にした焼き菓子","りんご: シナモンと一緒に焼いたりんごのクリスプを作る。","バナナ: バナナブレッドを焼く。","いちご: フレッシュいちごのショートケーキを作る。","レモン: レモンバーを作る。","マンゴー: マンゴープリンを作る。","ブルーベリー: ブルーベリーマフィンを焼く。","オレンジ: オレンジゼリーを作る。","グレープフルーツ: グレープフルーツとアボカドのサラダを作る。","ピーチ: ピーチクラフティを焼く。","パイナップル: パイナップルアップサイドダウンケーキを作る。","パッションフルーツ: パッションフルーツのムースを作る。","キウイフルーツ: キウイフルーツとヨーグルトのパフェを作る。","ラズベリー: ラズベリーのタルトを焼く。","パプリカ: パプリカのジャムを作る。","ピンクグレープフルーツ: ピンクグレープフルーツのゼリーを作る。","ブラックベリー: ブラックベリーのアイスクリームを作る。","ナシ: ナシのタルトタタンを焼く。","プラム: プラムのコンポートを作る。","パッションフルーツ: パッションフルーツのチーズケーキを作る。","マンゴー: マンゴームースを作る。","キウイフルーツ: キウイフルーツのグラニテを作る。","ストロベリー: ストロベリーショートケーキを作る。","レモン: レモンカードを作る。","ブルーベリー: ブルーベリーパンケーキを焼く。","オレンジ: オレンジケーキを作る。","バナナ: バナナパフェを作る。","いちご: いちご大福を作る。","キウイフルーツ: キウイフルーツのケーキロールを作る。","グレープ: グレープジュースのシャーベットを作る。","パイナップル: パイナップルとココナッツのアイスクリームを作る。","パッションフルーツ: パッションフルーツのパンナコッタを作る。","ラズベリー: ラズベリータルトレットを焼く。","メロン: メロンゼリーを作る。","ピーチ: ピーチパイを焼く。","ブラックベリー: ブラックベリーのムースを作る。","オレンジ: オレンジ風味のシフォンケーキを焼く。","キウイフルーツ: キウイフルーツとヨーグルトのアイスパフェを作る。","ストロベリー: ストロベリータルトを焼く。","レモン: レモンパンを焼く。","マンゴー: マンゴータルトを焼く。","パイナップル: パイナップルとココナッツのパフェを作る。","グレープフルーツ: グレープフルーツのムースケーキを作る。","パッションフルーツ: パッションフルーツとヨーグルトのアイスクリームを作る。","ラズベリー: ラズベリーアイスを作る。","オレンジ: オレンジプディングを作る。","キウイフルーツ: キウイフルーツとクリームチーズのディップを作る。","ストロベリー: ストロベリームースを作る。","メロン: メロンパンを焼く。","ブラックベリー: ブラックベリータルトを焼く。","パイナップル: パイナップルのシャーベットを作る。","じゃがいも: ローストポテトにしてオーブンで焼く。","トマト: モッツァレラチーズとバジルを添えたカプレーゼサラダを作る。","キャベツ: 千切りにしてマヨネーズと和えたコールスローサラダを作る。","にんじん: ジューシーなにんじんのグラッセを作る。","ズッキーニ: スライスしてグリルする。","ほうれん草: ガーリックと炒めて、シンプルなほうれん草の炒め物を作る。","ピーマン: ピーマンの肉詰めを作る。","キュウリ: 冷たいキュウリのスープを作る。","ブロッコリー: 蒸して、アーモンドスライスをトッピングする。","カボチャ: カボチャのスープを作る。","エリンギ: ソテーにして、ガーリックバターソースで味付けする。","ピーマン: ピーマンのピクルスを作る。","レタス: レタスを包んだサンドイッチを作る。","セロリ: セロリとリンゴのサラダを作る。","かぼちゃ: かぼちゃの天ぷらを作る。","たまねぎ: たまねぎをキャラメリゼする。","もやし: もやし炒めを作る。","シイタケ: しいたけの煮物を作る。","ニンニク: ニンニクのオーブン焼きを作る。","とうもろこし: とうもろこしのグリルを作る。","かぶ: かぶのおろし漬けを作る。","ピーマン: ピーマンと豚肉の炒め物を作る。","かいわれ大根: かいわれ大根の煮物を作る。","インゲン豆: インゲン豆のソテーを作る。","ブロッコリースプラウト: ブロッコリースプラウトのサラダを作る。","レンズ豆: レンズ豆のスープを作る。","セロリ: セロリのスープを作る。","えんどう豆: えんどう豆のバター炒めを作る。","レンコン: レンコンのきんぴらを作る。","しそ: しその葉を使った巻き寿司を作る。","ゴーヤ: ゴーヤチャンプルを作る。","グリーンピース: グリーンピースのサラダを作る。","ダイコン: ダイコンの漬物を作る。","にんにくの芽: にんにくの芽の炒め物を作る。","さつまいも: さつまいもの蒸しパンを作る。","トウモロコシ: トウモロコシのスープを作る。","カリフラワー: カリフラワーライスを作る。","パプリカ: パプリカのマリネを作る。","オクラ: オクラの天ぷらを作る。","ラディッシュ: ラディッシュのサラダを作る。","たけのこ: たけのこご飯を作る。","にんにく: にんにくバターを作り、パンに塗る。","ベビーコーン: ベビーコーンの炒め物を作る。","タケノコ: タケノコの煮物を作る。","レンズ豆: レンズ豆のサラダを作る。","チンゲン菜: チンゲン菜の炒め物を作る。","グリーンビーンズ: グリーンビーンズのソテーを作る。","ジャガイモ: ジャガイモのホイル焼きを作る。","トウモロコシ: トウモロコシのピザを作る。","オクラ: オクラのおひたしを作る。"]
+    var isChat = true
+
     function ninja(){
         if(hide == false){
             document.getElementById("ninja").style.display = "none"
@@ -248,6 +228,7 @@
 var text0 = `左の欄に入力してください。現在開発中です。`
 
 var speed = 1
+var pitchNum = 2
 var selectedTxt = text0
 var uttr = new SpeechSynthesisUtterance(selectedTxt)
 var repeat = false
@@ -255,7 +236,6 @@ var realTime = false
 var deleted = false
 uttr.rate = speed
 // 発言を再生 (発言キューに発言を追加)
-uttr.volume = 1.0
 speechSynthesis.speak(uttr)
 spmeter = document.getElementById("speed")
 spmeter2 = document.getElementById("speed2")
@@ -265,6 +245,7 @@ spmeter.addEventListener("input", (event) => {
 // チェックボックスを取得
 var checkbox = document.getElementById("toggleSwitch");
 var isRealTime = document.getElementById("realTime");
+var chat = document.getElementById("chat");
 
 // 取得したチェックボックスに対して処理を行う
 checkbox.addEventListener("change", function() {
@@ -278,21 +259,24 @@ checkbox.addEventListener("change", function() {
         repeat = true
     }
 });
-isRealTime.addEventListener("change", function() {
+chat.addEventListener("change", function() {
     if (this.checked) {
         // チェックされた場合の処理
         console.log("チェックされました");
-        realTime = true
+        isChat = true
     } else {
         // チェックが外された場合の処理
         console.log("チェックが外れました");
-        realTime = false
+        isChat = false
     }
 });
+
 function ini(){
     speechSynthesis.cancel()
     uttr = new SpeechSynthesisUtterance(selectedTxt)
     uttr.rate = speed/10
+    uttr.pitch = pitchNum/50
+    uttr.volume = 1.0
     speechSynthesis.speak(uttr)
     body.textContent = ""
     count = 0
@@ -300,7 +284,7 @@ function ini(){
     
     uttr.addEventListener("end", function () {
         // 読み上げが終了したらリピートする
-        uttr.volume = 1.0
+        
         speechSynthesis.speak(uttr)
         if(repeat == false && deleted == false){//読み上げが終わったかつ随時入力オフ
             //alert("製作中")
@@ -328,6 +312,16 @@ spmeter2.addEventListener("input", (event) => {
     animation()
     
 })
+var _pitch = document.getElementById("pitch");
+
+_pitch.addEventListener("input", (event) => {
+    pitchNum = Number(event.target.value)
+    stop = false
+    ini()
+    convert()
+    animation()
+    
+})
 document.getElementById("pause").addEventListener("click",function(){
     pauseAnimation()
 })
@@ -342,9 +336,29 @@ function pauseAnimation() {
         animation()
     }
 }
+var machNum = 2
 function reload(){
     var inputText = document.getElementById("textInput").value;
     selectedTxt = inputText
+    if(isChat){
+        // a の先頭から2文字が b の要素の先頭から2文字以上と完全に一致する場合の処理
+        var matchingItems = foodsAry.filter(item => {
+            return item.slice(0, machNum) === inputText.slice(0, machNum);
+        });
+        var perfect = foodsAry.filter(item => item.includes(inputText));
+        console.log(matchingItems)
+        if(matchingItems.length > 0){//候補が複数見つかった場合
+            if(perfect.length > 0){
+                selectedTxt = "一致する要素が見つかりました。:"+perfect
+            }else{
+                selectedTxt = "以下の要素をお探しですか？:"+matchingItems
+            }
+            console.log(perfect);
+        }else{
+            selectedTxt = "一致する要素はありませんでした"+inputText
+        }
+    }
+
     ini()
     convert()
     animation()
@@ -422,7 +436,7 @@ function animation(){
     if(count < txt1.length){
 
         body.insertAdjacentHTML('beforeend',txt1[count])
-        window.scrollTo(0,200000)
+        //window.scrollTo(0,200000)
         count++
     }else{
         count=0
