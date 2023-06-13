@@ -259,6 +259,17 @@ checkbox.addEventListener("change", function() {
         repeat = true
     }
 });
+isRealTime.addEventListener("change", function() {
+    if (this.checked) {
+        // チェックされた場合の処理
+        console.log("チェックされました");
+        realTime = true
+    } else {
+        // チェックが外された場合の処理
+        console.log("チェックが外れました");
+        realTime = false
+    }
+});
 chat.addEventListener("change", function() {
     if (this.checked) {
         // チェックされた場合の処理
