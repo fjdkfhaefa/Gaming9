@@ -73,7 +73,7 @@
 
         #memoList {
             margin-top: 0px;
-            height: 100px;
+            height: 150px;
             overflow-y: auto;
             overflow-x: hidden;
             background-color: rgba(0, 0, 0, 0.5);
@@ -625,7 +625,7 @@ document.addEventListener("keydown",function(event){
         // メモを削除する関数
         function deleteMemo(index) {
             var memoList = JSON.parse(localStorage.getItem('memoList')) || [];
-            var isSure = confirm('Are you sure you want to delete this memo?');
+            var isSure = true;
 
             if (isSure) {
                 memoList.splice(index, 1);
