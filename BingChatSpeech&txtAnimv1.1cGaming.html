@@ -470,7 +470,6 @@ document.getElementById("textInput").addEventListener("input", function () {
     if(realTime == true){
         deleted = false
         reload()
-        saveMemo()
     }else{
         
     }
@@ -478,10 +477,11 @@ document.getElementById("textInput").addEventListener("input", function () {
     // 入
 })
 document.getElementById("textInput").addEventListener("blur", function () {
+    saveMemo()
     if(realTime == false){
         deleted = false
         reload()
-        saveMemo()
+
     }else{
 
     }
