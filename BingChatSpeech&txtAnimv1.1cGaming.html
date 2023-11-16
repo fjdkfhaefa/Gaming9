@@ -612,7 +612,7 @@ document.addEventListener("keydown",function(event){
         function editMemo(index) {
             var memoList = JSON.parse(localStorage.getItem('memoList')) || [];
             document.getElementById("textInput").value = memoList[index].text;
-
+            reload();
             var editedMemoText = document.getElementById("textInput").value;
 
             if (editedMemoText !== null) {
