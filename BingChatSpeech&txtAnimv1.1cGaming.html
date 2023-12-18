@@ -540,7 +540,10 @@ document.getElementById("textInput").addEventListener("input", function () {
     // 入
 })
 document.getElementById("textInput").addEventListener("blur", function () {
-    saveMemo()
+    if(!isJido){
+        saveMemo()
+    }
+
     if(realTime == false){
         deleted = false
         reload()
