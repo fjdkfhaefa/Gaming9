@@ -367,11 +367,15 @@ jido.addEventListener("change", function() {
     if (this.checked) {
         // チェックされた場合の処理
         //console.log("チェックされました");
-        isJido = true
+        isJido = true;
+        isChat = false;
+        chat.checked = false;
     } else {
         // チェックが外された場合の処理
         //console.log("チェックが外れました");
-        isJido = false
+        isJido = false;
+        isChat = true;
+        //chat.checked = true;
     }
 });
 editMemo(0);//最初
