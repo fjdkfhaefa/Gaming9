@@ -434,7 +434,7 @@ function ini() {
     uttr.addEventListener("end", function () {
         // 読み上げが終了したらリピートする
         speechSynthesis.speak(uttr);
-        if (repeat == false && deleted == false) {
+        if (repeat == false && deleted == false) {//自動削除かつ
             document.getElementById("textInput").value = "";
             if (isJido) {
                 if (memoNum < memoLen) {
@@ -448,7 +448,7 @@ function ini() {
                 editMemo(memoNum);
             }
             selectedTxt = "";
-            deleted = true;
+            deleted = true;//クリア済み
             speechSynthesis.cancel();
             convert();
             animation();
@@ -587,8 +587,8 @@ document.getElementById("textInput").addEventListener("blur", function () {
         saveMemo()
     }
 
-    if(realTime == false){
-        deleted = false
+    if(realTime == false){//随時でなければ
+        deleted = false//削除を可能にします
         reload()
 
     }else{
@@ -747,6 +747,7 @@ document.addEventListener("keydown",function(event){
             } else {
                 console.error('Invalid index:', index);
             }
+            deleted = false//削除を可能にします
         }
 
 
