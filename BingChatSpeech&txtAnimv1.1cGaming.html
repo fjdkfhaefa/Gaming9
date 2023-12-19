@@ -31,7 +31,7 @@
             
             <label for="pitch" class="input-label">音の高さ</label>
             <input type="range" id="pitch" name="pitch" min="0" max="100" value="100" class="input-field">
-            <input type="text" id="textInput" placeholder="Enter text">
+            <input type="text" id="textInput" placeholder="Enter text"><!--入力欄-->
             <button id="pause">Pause</button>
             <div class="check">
                 <input type="checkbox" id="toggleSwitch" checked="checked">自動削除&nbsp;
@@ -434,12 +434,13 @@ function ini() {
     uttr.addEventListener("end", function () {
         // 読み上げが終了したらリピートする
         speechSynthesis.speak(uttr);
+        deleted = false;//クリア可能にする
         if (repeat == false && deleted == false) {//自動削除かつ
             document.getElementById("textInput").value = "";
             if (isJido) {
                 if (memoNum < memoLen) {
                     memoNum++;
-                    console.log(memoNum + "num22222222222222222222222222222222222222222222222222222222");
+                    //console.log(memoNum + "num22222222222222222222222222222222222222222222222222222222");
                 } else {
                     memoNum = 0;
                 }
@@ -562,7 +563,7 @@ function search(){
 }
 console.log(hiraganaText);  // こんにちは
 
-function reload(){
+function reload(){//いろんな処理をまとめて再実行
     inputText = document.getElementById("textInput").value;
     selectedTxt = inputText
     search()
@@ -582,12 +583,11 @@ document.getElementById("textInput").addEventListener("input", function () {
     
     // 入
 })
-document.getElementById("textInput").addEventListener("blur", function () {
+document.getElementById("textInput").addEventListener("blur", function () {//フォーカス？
     if(!isJido){
         saveMemo()
     }
-
-    if(realTime == false){//随時でなければ
+    if(realTime == false){//随時でなければすべて保存
         deleted = false//削除を可能にします
         reload()
 
@@ -748,6 +748,7 @@ document.addEventListener("keydown",function(event){
                 console.error('Invalid index:', index);
             }
             deleted = false//削除を可能にします
+            reload()//いろいろ再処理
         }
 
 
