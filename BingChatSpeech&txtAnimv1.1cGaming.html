@@ -55,7 +55,7 @@
         
     </div>
     <div class="memoArea">
-        <h1>入力履歴</h1>
+        <div class="oyaRireki"><h1>入力履歴</h1><div class="gomiOya"><div class="gomi" onclick="clearMemoList()"></div></div></div>
 
         <div id="memoList" style="color: rgb(145, 110, 255);"><div class="memoItem"><strong>Memo 1:</strong> ありがとうございました。 <em>at 2023/11/22 21:59:53</em> <span class="editButton" onclick="editMemo(0)">Edit</span> <span class="deleteButton" onclick="deleteMemo(0)">Delete</span></div><div class="memoItem"><strong>Memo 2:</strong> ありがとうございました。ああああああ <em>at 2023/11/22 22:00:02</em> <span class="editButton" onclick="editMemo(1)">Edit</span> <span class="deleteButton" onclick="deleteMemo(1)">Delete</span></div><div class="memoItem"><strong>Memo 3:</strong> ありがとうございました。あああああああ！ <em>at 2023/11/22 22:00:26</em> <span class="editButton" onclick="editMemo(2)">Edit</span> <span class="deleteButton" onclick="deleteMemo(2)">Delete</span></div><div class="memoItem"><strong>Memo 4:</strong> ありがとうございました。a <em>at 2023/11/23 9:08:10</em> <span class="editButton" onclick="editMemo(3)">Edit</span> <span class="deleteButton" onclick="deleteMemo(3)">Delete</span></div></div>
     </div>
@@ -65,6 +65,35 @@
         </div>
     </footer>
     <style>
+        .oyaRireki {
+            display: flex; /* Use flexbox to make child elements flex items */
+            align-items: center; /* Align items vertically at the center */
+        }
+
+        .gomiOya{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            margin-left: 10px;
+            border-radius: 10px;
+            transition: background-color 0.5s ease; /* Transition for background color change */
+        }
+        .gomi {
+            width: 50px;
+            height: 50px;
+            background-image: url("https://purepng.com/public/uploads/large/purepng.com-trash-cantrash-cansteelplasticdustbinrecyclebiniconclipart-1421526646013ifnyb.png");
+            background-size: cover;
+
+        }
+
+        .gomiOya:hover {
+            background-color: rgba(135, 206, 250, 0.5); /* Change to the desired hover background color */
+        }
+
+        
+
         .memoArea{
             background-color: rgba(76, 76, 76);
             color: white;
@@ -329,7 +358,19 @@ var isRealTime = document.getElementById("realTime");
 var chat = document.getElementById("chat");
 var jido = document.getElementById("jido");
 
+// Function to clear the memoList
+function clearMemoList() {
+    var isSure = confirm("Are you sure you want to clear the Memo List?");
+    if (isSure) {
+        // Clear the memoList in localStorage
+        localStorage.removeItem('memoList');
+        // Reload and display an empty memoList
+        loadMemo();
+    }
+}
+
 // 取得したチェックボックスに対して処理を行う
+
 checkbox.addEventListener("change", function() {
     if (this.checked) {
         // チェックされた場合の処理
