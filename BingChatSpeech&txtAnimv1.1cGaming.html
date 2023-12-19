@@ -583,6 +583,21 @@ document.getElementById("textInput").addEventListener("input", function () {
     
     // 入
 })
+document.getElementById("textInput").addEventListener('keypress', function(event) {
+    // キーが押された時の処理
+    if (event.key === 'Enter') {
+        if(!isJido){
+            saveMemo()
+        }
+        if(realTime == false){//随時でなければすべて保存
+            deleted = false//削除を可能にします
+            reload()
+
+        }else{
+
+        }
+    }
+});
 document.getElementById("textInput").addEventListener("blur", function () {//フォーカス？
     if(!isJido){
         saveMemo()
