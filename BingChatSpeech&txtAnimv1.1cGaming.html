@@ -720,25 +720,35 @@ document.addEventListener("keydown",function(event){
         }
 
         function editMemo(index) {
-            if(isJido){
+            if (isJido) {
                 index = memoNum;
             }
             var memoList = JSON.parse(localStorage.getItem('memoList')) || [];
             memoLen = memoList.length;
-            console.log(index);
-            // 編集前にフォーカスをtextInputに戻す
-            document.getElementById("textInput").focus();
-            
-            document.getElementById("textInput").value = memoList[index].text;
-            reload();
-            var editedMemoText = document.getElementById("textInput").value;
 
-            if (editedMemoText !== null) {
-                memoList[index].text = editedMemoText;
-                localStorage.setItem('memoList', JSON.stringify(memoList));
-                loadMemo();
+            // Check if index is within the valid range
+            if (index >= 0 && index < memoList.length) {
+                // Check if memoList[index] is defined and has a 'text' property
+                if (memoList[index] && 'text' in memoList[index]) {
+                    // Set the value of textInput to the text property
+                    document.getElementById("textInput").value = memoList[index].text;
+                    reload();
+
+                    // Update the memo text if the editedMemoText is not null
+                    var editedMemoText = document.getElementById("textInput").value;
+                    if (editedMemoText !== null) {
+                        memoList[index].text = editedMemoText;
+                        localStorage.setItem('memoList', JSON.stringify(memoList));
+                        loadMemo();
+                    }
+                } else {
+                    console.error('Invalid memo structure at index:', index);
+                }
+            } else {
+                console.error('Invalid index:', index);
             }
         }
+
 
 
 
