@@ -31,19 +31,25 @@
             
             <label for="pitch" class="input-label">音の高さ</label>
             <input type="range" id="pitch" name="pitch" min="0" max="100" value="100" class="input-field">
-            <input type="text" id="textInput" placeholder="Enter text"><!--入力欄-->
+            <textarea id="textInput"></textarea>
+
             <button id="pause">Pause</button>
-            <div class="check">
-                <input type="checkbox" id="toggleSwitch" checked="checked">自動削除&nbsp;
-            </div>
-            <div class="check">
-                <input type="checkbox" id="realTime">随時入力&nbsp;
-            </div>
-            <div class="check">
-                <input type="checkbox" id="chat" checked="checked">ChatGPTアシスト&nbsp;
-            </div>
-            <div class="check">
-                <input type="checkbox" id="jido">自動再生&nbsp;
+            <div class="kino">
+                <div class="check">
+                    <input type="checkbox" id="toggleSwitch" checked="checked">自動削除&nbsp;
+                </div>
+                <div class="check">
+                    <input type="checkbox" id="realTime">随時入力&nbsp;
+                </div>
+                <div class="check">
+                    <input type="checkbox" id="chat" checked="checked">ChatGPTアシスト&nbsp;
+                </div>
+                <div class="check">
+                    <input type="checkbox" id="jido">自動再生&nbsp;
+                </div>
+                <div class="check">
+                    <input type="checkbox" id="kaigyoSave" checked="checked">改行別保存&nbsp;
+                </div>
             </div>
         </div>
         <button class="menu-button" onclick="ninja()">忍者</button>
@@ -65,10 +71,26 @@
         </div>
     </footer>
     <style>
-        .oyaRireki {
-            display: flex; /* Use flexbox to make child elements flex items */
-            align-items: center; /* Align items vertically at the center */
+        .kino {
+            /*xスクロールが出てきません*/
+            height: 120px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
         }
+
+
+        .oyaRireki {
+            display: flex;
+            align-items: center;
+            white-space: nowrap; /* 文字を折り返さずに1行で表示 */
+            overflow: hidden; /* 要素からはみ出た部分を隠す */
+            text-overflow: ellipsis; /* 要素内のテキストがはみ出た場合に省略記号で表示 */
+        }
+
 
         .gomiOya{
             display: flex;
@@ -125,11 +147,11 @@
 
         /* 全体のスタイル */
         .input-field {
-        width: 100%;
+            width: 100%;
         }
         #textInput {
-        width: 100%;
-        margin: 0 auto 10px 0;
+            width: 100%;
+            margin: 0 auto 10px 0;
         }
         
         body {
@@ -239,6 +261,10 @@
             color: white;
             font-size: 150%;
             display: inline-block;
+            width: 200px;
+            white-space: nowrap; /* テキストを折り返さずに表示 */
+            overflow: hidden; /* 横幅を超えた部分を隠す */
+            text-overflow: ellipsis; /* 超過部分を省略記号(...)で表示 */
         }
         .check input[type="checkbox"] {
             width: 50px;
@@ -343,7 +369,47 @@ var isJido = false
 var memoNum = 0
 var memoLen = 0
 var body = document.getElementById("txtErea");
+// チェックボックスを取得
+var checkbox = document.getElementById("toggleSwitch");
+var isRealTime = document.getElementById("realTime");
+var chat = document.getElementById("chat");
+var jido = document.getElementById("jido");
+var kaigyoSave = document.getElementById("kaigyoSave");
+var isKaigyo = true;
+var r = 255
+var r2 = 255
+var g = 0
+var b = 0
+var red=false
+var redMinus = true
+var green = true
+var greenMinus = false
+var blue = false
+var blueMinus = false
 
+var count = 0
+var top = 0
+var fonts = 10
+var stop = false
+var cRate = 10
+var spNum = 0
+var memoText = ""
+var kugiriSu = 0
+// 使用例
+var katakanaText = "コンニチハ";
+var hiraganaText = katakanaToHiragana(katakanaText);
+var inputText = ""
+var isLoaded = 0
+var txt1 = 0
+var n = [0]
+var space = [0]
+var body = 0
+//body.style.color = "lime"
+
+var lineBreaks = 0
+var spaces = 0
+// グローバル変数として txtArray を宣言
+var txtArray = [];
 uttr.rate = speed
 // 発言を再生 (発言キューに発言を追加)
 speechSynthesis.speak(uttr)
@@ -352,11 +418,7 @@ spmeter2 = document.getElementById("speed2")
 spmeter.addEventListener("input", (event) => {
     cRate = Number(event.target.value)
 })
-// チェックボックスを取得
-var checkbox = document.getElementById("toggleSwitch");
-var isRealTime = document.getElementById("realTime");
-var chat = document.getElementById("chat");
-var jido = document.getElementById("jido");
+
 
 // Function to clear the memoList
 function clearMemoList() {
@@ -417,6 +479,19 @@ jido.addEventListener("change", function() {
         isJido = false;
     }
 });
+kaigyoSave.addEventListener("change", function() {
+    if (this.checked) {
+        // チェックされた場合の処理
+        //console.log("チェックされました");
+        isKaigyo = true;
+        isChat = false;
+        chat.checked = false;
+    } else {
+        // チェックが外された場合の処理
+        //console.log("チェックが外れました");
+        isJido = false;
+    }
+});
 editMemo(0);//最初
 // ...（スクリプトの残りの部分）
 
@@ -444,8 +519,8 @@ function ini() {
                 } else {
                     memoNum = 0;
                 }
-                console.log(memoLen + "len");
-                console.log(memoNum + "num");
+                //console.log(memoLen + "len");
+                //console.log(memoNum + "num");
                 editMemo(memoNum);
             }
             selectedTxt = "";
@@ -515,11 +590,7 @@ function hiraganaToKatakana(_text) {
   });
 }
 
-// 使用例
-var katakanaText = "コンニチハ";
-var hiraganaText = katakanaToHiragana(katakanaText);
-var inputText = ""
-var isLoaded = 0
+
 
 function search(){
     isLoaded++
@@ -543,7 +614,7 @@ function search(){
             });
             if(research.length > 0){
                 selectedTxt = "以下の要素をお探しですか？:"+research.join(", "); // 配列をカンマ区切りの文字列に変換
-                console.log(selectedTxt)
+                //console.log(selectedTxt)
             }else{
                 if(isHiragana(inputText) && isLoaded < 2){
                     inputText=hiraganaToKatakana(inputText)
@@ -613,15 +684,29 @@ document.getElementById("textInput").addEventListener("blur", function () {//フ
     // 入
 })
 
-var txt1 = 0
-var n = [0]
-var space = [0]
-var body = 0
-//body.style.color = "lime"
 
-var lineBreaks = 0
-var spaces = 0
+
+function kugiri() {
+    // 改行の数を数える
+    var txt2 = document.getElementById('textInput').value
+    kugiriSu = (txt2.match(/\n/g) || []).length;
+
+    // 新しい配列を作成
+    var newTxtArray = [];
+
+    // 改行ごとにテキストを分割し、新しい配列に格納
+    for (var i = 0; i <= kugiriSu; i++) {
+        var txt = txt2.split('\n')[i] || ""; // 改行がない場合は空文字列
+        newTxtArray.push(txt);
+    }
+    
+    // 新しい配列をグローバルの txtArray に代入
+    txtArray = newTxtArray;
+
+    console.log(txtArray);
+}
 function convert(){
+
     txt1 = selectedTxt.split(``)
     n = [0]
     space = [0]
@@ -643,23 +728,7 @@ function convert(){
         txt1.splice(space[space.length-1],1,`&nbsp;`)
     }
 }convert()
-var r = 255
-var r2 = 255
-var g = 0
-var b = 0
-var red=false
-var redMinus = true
-var green = true
-var greenMinus = false
-var blue = false
-var blueMinus = false
 
-var count = 0
-var top = 0
-var fonts = 10
-var stop = false
-var cRate = 10
-var spNum = 0
 function animation(){
     if(count < txt1.length){
 
@@ -689,31 +758,37 @@ document.addEventListener("keydown",function(event){
 
         // メモをローカルストレージに保存する関数
         function saveMemo() {
-            var memoText = document.getElementById('textInput').value;
+            memoText = document.getElementById('textInput').value;
+            kugiri()
+            for (var j = 0; j < txtArray.length; j++) {
+                memoText = txtArray[j];
+                console.log(txtArray[j])
+                console.log(kugiriSu)
+                if (memoText.trim() === "") {
+                    alert("Please enter a memo before saving.");
+                    return;
+                }
 
-            if (memoText.trim() === "") {
-                alert("Please enter a memo before saving.");
-                return;
+                var timestamp = new Date().toLocaleString();
+                var memoData = {
+                    text: memoText,
+                    timestamp: timestamp
+                };
+
+                // 保存されたメモのリストを取得
+                var memoList = JSON.parse(localStorage.getItem('memoList')) || [];
+
+                // 新しいメモをリストに追加
+                memoList.push(memoData);
+
+                // ローカルストレージに保存
+                localStorage.setItem('memoList', JSON.stringify(memoList));
+
+
+                // メモ一覧を再表示
+                loadMemo();
             }
 
-            var timestamp = new Date().toLocaleString();
-            var memoData = {
-                text: memoText,
-                timestamp: timestamp
-            };
-
-            // 保存されたメモのリストを取得
-            var memoList = JSON.parse(localStorage.getItem('memoList')) || [];
-
-            // 新しいメモをリストに追加
-            memoList.push(memoData);
-
-            // ローカルストレージに保存
-            localStorage.setItem('memoList', JSON.stringify(memoList));
-
-
-            // メモ一覧を再表示
-            loadMemo();
         }
 
         // ローカルストレージからメモを読み込んで表示する関数
