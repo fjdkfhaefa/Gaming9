@@ -492,7 +492,7 @@ kaigyoSave.addEventListener("change", function() {
     } else {
         // チェックが外された場合の処理
         //console.log("チェックが外れました");
-        isJido = false;
+        isKaigyo = false;
     }
 });
 editMemo(0);//最初
@@ -760,37 +760,49 @@ document.addEventListener("keydown",function(event){
         };
 
         // メモをローカルストレージに保存する関数
-        function saveMemo() {
-            memoText = document.getElementById('textInput').value;
-            kugiri()
-            for (var j = 0; j < txtArray.length; j++) {
-                memoText = txtArray[j];
-                console.log(txtArray[j])
-                console.log(kugiriSu)
-                if (memoText.trim() === "") {
-                    console.log("Please enter a memo before saving.");
-                    //return;
-                }
-
-                var timestamp = new Date().toLocaleString();
-                var memoData = {
-                    text: memoText,
-                    timestamp: timestamp
-                };
-
-                // 保存されたメモのリストを取得
-                var memoList = JSON.parse(localStorage.getItem('memoList')) || [];
-
-                // 新しいメモをリストに追加
-                memoList.push(memoData);
-
-                // ローカルストレージに保存
-                localStorage.setItem('memoList', JSON.stringify(memoList));
-
-
-                // メモ一覧を再表示
-                loadMemo();
+        function save(){
+            if (memoText.trim() === "") {
+                console.log("Please enter a memo before saving.");
+                //return;
             }
+
+            var timestamp = new Date().toLocaleString();
+            var memoData = {
+                text: memoText,
+                timestamp: timestamp
+            };
+
+            // 保存されたメモのリストを取得
+            var memoList = JSON.parse(localStorage.getItem('memoList')) || [];
+
+            // 新しいメモをリストに追加
+            memoList.push(memoData);
+
+            // ローカルストレージに保存
+            localStorage.setItem('memoList', JSON.stringify(memoList));
+
+
+            // メモ一覧を再表示
+            loadMemo();
+        }
+        function saveMemo() {
+            if(isKaigyo){
+                kugiri()
+
+                for (var j = 0; j < txtArray.length; j++) {
+                    memoText = txtArray[j];
+                    save();
+                    console.log(txtArray[j])
+                    console.log(kugiriSu)
+
+                }
+            }else{
+                memoText = document.getElementById('textInput').value;
+                save();
+            }
+
+
+
 
         }
 
