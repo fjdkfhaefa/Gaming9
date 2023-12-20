@@ -31,7 +31,7 @@
             
             <label for="pitch" class="input-label">音の高さ</label>
             <input type="range" id="pitch" name="pitch" min="0" max="100" value="100" class="input-field">
-            <textarea id="textInput"></textarea>
+            <textarea id="textInput" rows="4"></textarea><!--入力欄-->
 
             <button id="pause">Pause</button>
             <div class="kino">
@@ -61,7 +61,7 @@
         
     </div>
     <div class="memoArea">
-        <div class="oyaRireki"><h1>入力履歴</h1><div class="gomiOya"><div class="gomi" onclick="clearMemoList()"></div></div></div>
+        <div class="oyaRireki"><h2>入力履歴</h2><div class="gomiOya"><div class="gomi" onclick="clearMemoList()"></div></div></div>
 
         <div id="memoList" style="color: rgb(145, 110, 255);"><div class="memoItem"><strong>Memo 1:</strong> ありがとうございました。 <em>at 2023/11/22 21:59:53</em> <span class="editButton" onclick="editMemo(0)">Edit</span> <span class="deleteButton" onclick="deleteMemo(0)">Delete</span></div><div class="memoItem"><strong>Memo 2:</strong> ありがとうございました。ああああああ <em>at 2023/11/22 22:00:02</em> <span class="editButton" onclick="editMemo(1)">Edit</span> <span class="deleteButton" onclick="deleteMemo(1)">Delete</span></div><div class="memoItem"><strong>Memo 3:</strong> ありがとうございました。あああああああ！ <em>at 2023/11/22 22:00:26</em> <span class="editButton" onclick="editMemo(2)">Edit</span> <span class="deleteButton" onclick="deleteMemo(2)">Delete</span></div><div class="memoItem"><strong>Memo 4:</strong> ありがとうございました。a <em>at 2023/11/23 9:08:10</em> <span class="editButton" onclick="editMemo(3)">Edit</span> <span class="deleteButton" onclick="deleteMemo(3)">Delete</span></div></div>
     </div>
@@ -125,13 +125,13 @@
 
         #memoList {
             margin-top: 0px;
-            height: 150px;
+            height: 300px;
             overflow-y: auto;
             overflow-x: hidden;
             background-color: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
             padding: 10px;
-            font-size: 150%;
+            
         }
 
         .memoItem {
@@ -152,6 +152,7 @@
         #textInput {
             width: 100%;
             margin: 0 auto 10px 0;
+            font-size: larger;
         }
         
         body {
@@ -164,6 +165,7 @@
             background-size: cover;
             overflow-y: auto;
             overflow-x: hidden;
+            font-size: x-large;
         }
     
         /* アサイド要素 */
@@ -208,7 +210,7 @@
         /* テキストエリア */
         #txtErea {
             color: white;
-            font-size: 150%;
+            
             height: max-content;
             background-color: rgb(68, 68, 68);
         }
@@ -221,6 +223,7 @@
             display: flex;
             justify-content: center;
             transition: height 0.3s ease;
+            font-size: 70%;
         }
     
         /* コピーライトテキスト */
@@ -245,7 +248,7 @@
             margin-bottom: 5px;
             transition: background-color 0.3s ease;
             border-radius: 5px;
-            font-size: 150%;
+            font-size: larger;
         }
     
         button:hover,
@@ -259,7 +262,7 @@
             display: flex;
             align-items: center;
             color: white;
-            font-size: 150%;
+            
             display: inline-block;
             width: 200px;
             white-space: nowrap; /* テキストを折り返さずに表示 */
@@ -275,7 +278,7 @@
         /* ラベルのスタイル */
         label {
             color: white;
-            font-size: 150%;
+            
         }
     
         /* 縦の長さが短い場合のフッターのスタイル */
