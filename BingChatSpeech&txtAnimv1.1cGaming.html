@@ -413,11 +413,19 @@ var lineBreaks = 0
 var spaces = 0
 // グローバル変数として txtArray を宣言
 var txtArray = [];
+spmeter = document.getElementById("speed")
+spmeter2 = document.getElementById("speed2")
+var _pitch = document.getElementById("pitch");
+speed = localStorage.getItem('speed');//speedの取得
+pitchNum = localStorage.getItem('pitchNum');
+spmeter2.value = speed;
+_pitch.value = pitchNum;
+console.log(speed);
+console.log("speed")
 uttr.rate = speed
 // 発言を再生 (発言キューに発言を追加)
 speechSynthesis.speak(uttr)
-spmeter = document.getElementById("speed")
-spmeter2 = document.getElementById("speed2")
+
 spmeter.addEventListener("input", (event) => {
     cRate = Number(event.target.value)
 })
@@ -534,6 +542,21 @@ function ini() {
         }
     });
 }
+// speed と pitchNum 変数を localStorage に保存する関数
+function saveSpeedToLocalStorage(speed, pitchNum) {
+  localStorage.setItem('speed', speed);
+  localStorage.setItem('pitchNum', pitchNum);
+}
+
+
+// localStorageからspeed変数の値を取得する関数
+function getSpeedFromLocalStorage() {
+  return localStorage.getItem('speed');
+}
+
+
+
+
 
 // ...（スクリプトの残りの部分）
 window.addEventListener('beforeunload', function (event) {
@@ -541,17 +564,20 @@ window.addEventListener('beforeunload', function (event) {
     speechSynthesis.cancel();
 });
 spmeter2.addEventListener("input", (event) => {
+    
     speed = Number(event.target.value)
+    saveSpeedToLocalStorage(speed,pitchNum);
     stop = false
     ini()
     convert()
     animation()
     
 })
-var _pitch = document.getElementById("pitch");
+
 
 _pitch.addEventListener("input", (event) => {
     pitchNum = Number(event.target.value)
+    saveSpeedToLocalStorage(speed,pitchNum);
     stop = false
     ini()
     convert()
