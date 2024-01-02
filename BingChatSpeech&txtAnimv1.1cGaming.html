@@ -50,6 +50,9 @@
                 <div class="check">
                     <input type="checkbox" id="kaigyoSave" checked="checked">改行別保存&nbsp;
                 </div>
+                <br>
+                <label for="timeInput">自動遅延（秒）:</label>
+                <input type="number" step="0.1" min="0" max="9.9" id="timeInput" placeholder="0.0" />
             </div>
         </div>
         <button class="menu-button" onclick="ninja()">忍者</button>
@@ -71,6 +74,10 @@
         </div>
     </footer>
     <style>
+        #timeInput{
+            height: auto;
+            font-size: x-large;
+        }
         .kino {
             /*xスクロールが出てきません*/
             height: 120px;
@@ -411,6 +418,8 @@ var body = 0
 
 var lineBreaks = 0
 var spaces = 0
+var delayJido = 10;
+var timeInput = document.getElementById("timeInput");
 // グローバル変数として txtArray を宣言
 var txtArray = [];
 spmeter = document.getElementById("speed")
@@ -420,6 +429,7 @@ speed = localStorage.getItem('speed');//speedの取得
 pitchNum = localStorage.getItem('pitchNum');
 spmeter2.value = speed;
 _pitch.value = pitchNum;
+timeInput.value = delayJido;
 console.log(speed);
 console.log("speed")
 uttr.rate = speed
@@ -507,6 +517,9 @@ editMemo(0);//最初
 // ...（スクリプトの残りの部分）
 
 function ini() {
+    if(isJido){
+        
+    }
     speechSynthesis.cancel();
     uttr = new SpeechSynthesisUtterance(selectedTxt);
     uttr.rate = speed / 10;
@@ -537,17 +550,24 @@ function ini() {
             selectedTxt = "";
             deleted = true;//クリア済み
             speechSynthesis.cancel();
+            if(isJido){
+                setTimeout(function(){
+                    speechSynthesis.speak(uttr);
+                },delayJido*1000);
+
+            }
             convert();
             animation();
         }
     });
 }
+
 // speed と pitchNum 変数を localStorage に保存する関数
-function saveSpeedToLocalStorage(speed, pitchNum) {
+function saveSpeedToLocalStorage(speed, pitchNum ,delayJido) {
   localStorage.setItem('speed', speed);
   localStorage.setItem('pitchNum', pitchNum);
+  localStorage.setItem('delayJido', delayJido);
 }
-
 
 // localStorageからspeed変数の値を取得する関数
 function getSpeedFromLocalStorage() {
@@ -563,10 +583,16 @@ window.addEventListener('beforeunload', function (event) {
     // `speechSynthesis`の読み上げを停止する
     speechSynthesis.cancel();
 });
+timeInput.addEventListener("input", (event) => {
+    
+    delayJido = Number(event.target.value)
+    saveSpeedToLocalStorage(speed, pitchNum ,delayJido)
+    
+})
 spmeter2.addEventListener("input", (event) => {
     
     speed = Number(event.target.value)
-    saveSpeedToLocalStorage(speed,pitchNum);
+    saveSpeedToLocalStorage(speed, pitchNum ,delayJido)
     stop = false
     ini()
     convert()
@@ -577,7 +603,7 @@ spmeter2.addEventListener("input", (event) => {
 
 _pitch.addEventListener("input", (event) => {
     pitchNum = Number(event.target.value)
-    saveSpeedToLocalStorage(speed,pitchNum);
+    saveSpeedToLocalStorage(speed, pitchNum ,delayJido)
     stop = false
     ini()
     convert()
@@ -665,7 +691,7 @@ console.log(hiraganaText);  // こんにちは
 
 function reload(){//いろんな処理をまとめて再実行
     inputText = document.getElementById("textInput").value;
-    selectedTxt = inputText
+    selectedTxt = inputText//配列からではなく、入力欄から？
     search()
     isLoaded = 0
     //stop = false;//普通の再生ストップは偽
@@ -682,7 +708,7 @@ document.getElementById("textInput").addEventListener("input", function () {
     }else{
         
     }
-    
+    //alert("input")
     // 入
 })
 document.getElementById("textInput").addEventListener('keypress', function(event) {
@@ -699,6 +725,7 @@ document.getElementById("textInput").addEventListener('keypress', function(event
 
         }
     }
+    //alert("keypress")
 });
 document.getElementById("textInput").addEventListener("blur", function () {//フォーカス？
     if(!isJido){
@@ -711,7 +738,7 @@ document.getElementById("textInput").addEventListener("blur", function () {//フ
     }else{
 
     }
-
+    //alert("blur")
     // 入
 })
 
