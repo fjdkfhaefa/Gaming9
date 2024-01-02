@@ -524,7 +524,7 @@ function ini() {
                 }
                 //console.log(memoLen + "len");
                 //console.log(memoNum + "num");
-                editMemo(memoNum);
+                editMemo(memoNum);//reload()も含む。
             }
             selectedTxt = "";
             deleted = true;//クリア済み
@@ -642,9 +642,11 @@ function reload(){//いろんな処理をまとめて再実行
     selectedTxt = inputText
     search()
     isLoaded = 0
+    //stop = false;//普通の再生ストップは偽
     ini()
     convert()
     animation()
+    
 }
 
 document.getElementById("textInput").addEventListener("input", function () {
@@ -691,7 +693,7 @@ document.getElementById("textInput").addEventListener("blur", function () {//フ
 
 function kugiri() {
     // 改行の数を数える
-    var txt2 = document.getElementById('textInput').value
+    var txt2 = document.getElementById('textInput').value;
     kugiriSu = (txt2.match(/\n/g) || []).length;
 
     // 新しい配列を作成
@@ -702,12 +704,19 @@ function kugiri() {
         var txt = txt2.split('\n')[i] || ""; // 改行がない場合は空文字列
         newTxtArray.push(txt);
     }
-    
+
+    // 空の要素を削除
+    var filteredTxtArray = newTxtArray.filter(function (element) {
+        return element !== '';
+    });
+
     // 新しい配列をグローバルの txtArray に代入
-    txtArray = newTxtArray;
+    txtArray = filteredTxtArray;
 
     console.log(txtArray);
+    console.log("check 空白");
 }
+
 function convert(){
 
     txt1 = selectedTxt.split(``)
@@ -792,8 +801,8 @@ document.addEventListener("keydown",function(event){
                 for (var j = 0; j < txtArray.length; j++) {
                     memoText = txtArray[j];
                     save();
-                    console.log(txtArray[j])
-                    console.log(kugiriSu)
+                    //console.log(txtArray[j])
+                    //console.log(kugiriSu)
 
                 }
             }else{
