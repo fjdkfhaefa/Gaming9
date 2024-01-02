@@ -419,7 +419,7 @@ var body = 0
 
 var lineBreaks = 0
 var spaces = 0
-var delayJido = 3;
+var delayJido = 1.5;
 var timeInput = document.getElementById("timeInput");
 // グローバル変数として txtArray を宣言
 var txtArray = [];
@@ -428,6 +428,7 @@ spmeter2 = document.getElementById("speed2")
 var _pitch = document.getElementById("pitch");
 speed = localStorage.getItem('speed');//speedの取得
 pitchNum = localStorage.getItem('pitchNum');
+delayJido = localStorage.getItem('delayJido');
 spmeter2.value = speed;
 _pitch.value = pitchNum;
 timeInput.value = delayJido;
