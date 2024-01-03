@@ -347,7 +347,7 @@
         });
     });
     var hide = false
-    var foodsAry = ["1. **弥生時代 (紀元前300～紀元3世紀頃)：**\n - 歴史的な偉人：特定の個人の名前はわかりませんが、この時代は農耕が広がり、日本列島に様々な部族が形成された時期です。","2. **古墳時代 (紀元3世紀～7世紀)：**\n - 歴史的な偉人：推古天皇（女性の天皇として知られている）、用明天皇など。また、仏教が伝来し、物部氏や蘇我氏などの豪族も台頭しました。","3. **奈良時代 (710年～794年)：**\n - 歴史的な偉人：推古天皇、聖武天皇、菅原道真（学問の神様として知られる）、僧侶最澄や空海（仏教の宗祖とされる）など。","4. **平安時代 (794年～1185年)：**\n - 歴史的な偉人：桓武天皇、清和天皇、源頼朝（鎌倉幕府の初代将軍）、藤原道長（摂政として政権を握る）など。","5. **鎌倉時代 (1185年～1333年)：**\n - 歴史的な偉人：源頼朝、北条時政、法然（浄土宗の開祖）、一遍（浄土真宗の開祖）など。","6. **室町時代 (1336年～1573年)：**\n - 歴史的な偉人：足利尊氏、足利義満、金閣寺の開基である足利義満、応仁の乱の主君である細川勝元など。","7. **戦国時代 (1467年～1568年)：**\n - 歴史的な偉人：織田信長、豊臣秀吉、徳川家康、武田信玄、上杉謙信など。","8. **安土桃山時代 (1573年～1603年)：**\n - 歴史的な偉人：豊臣秀吉、豊臣秀次、豊臣秀頼、織田信長、徳川家康など。","9. **江戸時代 (1603年～1868年)：**\n - 歴史的な偉人：徳川家康、徳川秀忠、徳川家光、坂本竜馬、吉田松陰、西郷隆盛など。","10. **明治時代 (1868年～1912年)：**\n - **歴史的な出来事：** 明治維新が起こり、徳川幕府が崩壊。明治天皇が即位し、近代化の進展が始まりました。西洋の文化や技術の導入、産業革命の進展がありました。\n - **歴史的な偉人：** 伊藤博文（初代内閣総理大臣）、大久保利通、西郷隆盛、福沢諭吉（学者、思想家）、坂本竜馬（幕末の志士）など。","11. **大正時代 (1912年～1926年)：**\n - **歴史的な出来事：** 第一次世界大戦が勃発し、日本も参戦。社会主義や民主主義の影響が広がり、都市化が進展しました。\n - **歴史的な偉人：** 明治天皇、大正天皇、桂太郎（内閣総理大臣）、原敬（内閣総理大臣）、樋口一葉（小説家）など。","12. **昭和時代 (1926年～1989年)：**\n - **歴史的な出来事：** 昭和初期には世界恐慌や満州事変、その後に太平洋戦争が勃発。戦後はGHQ（連合国総司令部）の指導のもと、日本が復興しました。昭和天皇の在位期間中に多くの歴史的出来事がありました。\n - **歴史的な偉人：** 昭和天皇、広瀬中将（満州事変で知られる）、吉田茂（内閣総理大臣）、佐藤栄作（内閣総理大臣）、織田作之助（小説家）、宮沢賢治（詩人・作家）など。","13. **平成時代 (1989年～2019年)：**\n - **歴史的な出来事：** バブル経済の崩壊、阪神淡路大震災、新しいテクノロジーの進展、そして平成の時代の終わりには、新元号「令和」が発表されました。\n - **歴史的な偉人：** 天皇明仁、小泉純一郎（内閣総理大臣）、安倍晋三（内閣総理大臣）、村上春樹（作家）、坂本龍馬の子孫である坂本九（歌手）など。","14. **令和時代 (2019年～現在)：**\n - **歴史的な出来事：** まだ現在進行形の時代であり、具体的な出来事は過去のものではありませんが、新型コロナウイルスのパンデミックや東京オリンピックの開催などがあります。\n - **歴史的な偉人：** 令和天皇、安倍晋三、菅義偉（内閣総理大臣）など。"]
+    var foodsAry = ["左の欄に入力してください。現在開発中です。"]
     var isChat = true
 
     function ninja(){
@@ -433,6 +433,8 @@ var _pitch = document.getElementById("pitch");
 speed = localStorage.getItem('speed');//speedの取得
 pitchNum = localStorage.getItem('pitchNum');
 delayJido = localStorage.getItem('delayJido');
+memoNum = localStorage.getItem('memoNum');
+alert(memoNum)
 spmeter2.value = speed;
 _pitch.value = pitchNum;
 timeInput.value = delayJido;
@@ -494,6 +496,7 @@ chat.addEventListener("change", function() {
     }
 });
 jido.addEventListener("change", function() {
+
     if (this.checked) {
         // チェックされた場合の処理
         //console.log("チェックされました");
@@ -504,6 +507,7 @@ jido.addEventListener("change", function() {
         // チェックが外された場合の処理
         //console.log("チェックが外れました");
         isJido = false;
+        memoNum = 0;
     }
 });
 kaigyoSave.addEventListener("change", function() {
@@ -519,7 +523,7 @@ kaigyoSave.addEventListener("change", function() {
         isKaigyo = false;
     }
 });
-editMemo(0);//最初
+editMemo(memoNum);//最初
 // ...（スクリプトの残りの部分）
 
 function ini() {
@@ -545,6 +549,7 @@ function ini() {
             if (isJido) {
                 if (memoNum < memoLen) {
                     memoNum++;
+                    saveSpeedToLocalStorage(speed, pitchNum ,delayJido ,memoNum);
                     //console.log(memoNum + "num22222222222222222222222222222222222222222222222222222222");
                 } else {
                     memoNum = 0;
@@ -569,10 +574,11 @@ function ini() {
 }
 
 // speed と pitchNum 変数を localStorage に保存する関数
-function saveSpeedToLocalStorage(speed, pitchNum ,delayJido) {
+function saveSpeedToLocalStorage(speed, pitchNum ,delayJido, memoNum) {
   localStorage.setItem('speed', speed);
   localStorage.setItem('pitchNum', pitchNum);
   localStorage.setItem('delayJido', delayJido);
+  localStorage.setItem('memoNum', memoNum);
 }
 
 // localStorageからspeed変数の値を取得する関数
@@ -592,13 +598,13 @@ window.addEventListener('beforeunload', function (event) {
 timeInput.addEventListener("input", (event) => {
     
     delayJido = Number(event.target.value)
-    saveSpeedToLocalStorage(speed, pitchNum ,delayJido)
+    saveSpeedToLocalStorage(speed, pitchNum ,delayJido ,memoNum);
     
 })
 spmeter2.addEventListener("input", (event) => {
     
     speed = Number(event.target.value)
-    saveSpeedToLocalStorage(speed, pitchNum ,delayJido)
+    saveSpeedToLocalStorage(speed, pitchNum ,delayJido ,memoNum);
     stop = false
     ini()
     convert()
@@ -609,7 +615,7 @@ spmeter2.addEventListener("input", (event) => {
 
 _pitch.addEventListener("input", (event) => {
     pitchNum = Number(event.target.value)
-    saveSpeedToLocalStorage(speed, pitchNum ,delayJido)
+    saveSpeedToLocalStorage(speed, pitchNum ,delayJido ,memoNum);
     stop = false
     ini()
     convert()
@@ -704,7 +710,6 @@ function reload(){//いろんな処理をまとめて再実行
     ini()
     convert()
     animation()
-    
 }
 
 document.getElementById("textInput").addEventListener("input", function () {
@@ -876,6 +881,7 @@ document.addEventListener("keydown",function(event){
 
         // ローカルストレージからメモを読み込んで表示する関数
         function loadMemo() {
+            saveSpeedToLocalStorage(speed, pitchNum ,delayJido ,memoNum);
             var memoList = JSON.parse(localStorage.getItem('memoList')) || [];
             var memoListContainer = document.getElementById('memoList');
             memoListContainer.innerHTML = "";
@@ -890,6 +896,7 @@ document.addEventListener("keydown",function(event){
                     ' <span class="deleteButton" onclick="deleteMemo(' + index + ')">Delete</span>';
                 memoListContainer.appendChild(memoItem);
             });
+            
         }
 
         function editMemo(index) {
